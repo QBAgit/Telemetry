@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+All sensors data
+{% endblock %}
+
+{% block content %}
+
+<h2>All sensors data:</h2>
+<table id="all_sensors">
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Owner</th>
+      <th>Value</th>
+    </tr>
+   {% for sensor in f_sensors %}
+   <tr>
+     <!-- <td><a href="/sensor/{{ sensor.pk }}">{{ sensor.name }}</a></td> -->
+     <td>{{ sensor.name }}</td>
+     <td>{{ sensor.description }}</td>
+     <td>{{ sensor.owner }}</td>
+     <td>{{ sensor.raw_value }}</td>
+   </tr>
+   {% endfor  %}
+</table>
+{% endblock %}
