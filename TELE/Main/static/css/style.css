@@ -1,0 +1,26 @@
+h1 {
+  color: Blue;
+}
+
+#tweet_summary {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 30%;
+}
+
+#tweet_summary td, #tweet_summary th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#tweet_summary tr:nth-child(even){background-color: #f2f2f2;}
+
+#tweet_summary tr:hover {background-color: #ddd;}
+
+#tweet_summary th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: blue;
+  color: white;
+}
