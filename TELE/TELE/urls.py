@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 from Main.views import MainView, FdataListView, FdataView
+from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,8 @@ urlpatterns = [
     url(r'^api/v1/fdata/$', FdataListView.as_view()),
     url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', FdataView.as_view()),
 
+]
+
+urlpatterns += [
+    path('api-auth/', include('rest_framework.urls')),
 ]
