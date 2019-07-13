@@ -5,6 +5,9 @@ from Main.models import Fdata
 from .serializers import FdataSerializer
 from django.contrib.auth.models import User
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 # Create your views here.
 
 class MainView(View):
@@ -13,10 +16,21 @@ class MainView(View):
        return render(request, "all_sensors.html",ctx)
 
 
-class FdataListView(generics.ListCreateAPIView):
-    """Display all float measures"""
-    queryset = Fdata.objects.all()
-    serializer_class = FdataSerializer
+class FdataListView(APIView):
+    """
+    List all float measures or create a new measure
+    """
+    def get(self, request, format=None):
+        f_measures = Fdata.objects.all()
+        serializer = FdataSerializer(f_measures, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = FdataSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class FdataView(generics.RetrieveUpdateDestroyAPIView):
