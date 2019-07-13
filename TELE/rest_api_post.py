@@ -16,18 +16,17 @@ if __name__ == "__main__":
 	print("Adding 5 random temps")
 
 	pomiar = {
-	    "name": "Temp TEST",
+	    "name": "TESTY",
 	    "description": "Pomiar {}",
 	    "owner": 1,
-	    "raw_value": "{}",
-		"eng_value": 0
+		"value": 0
 	}
 
 	for item in range(5):
 		temp = randint(0,100)
 		pomiar.update({
-			"description" : "Pomiar {}".format(item),
+			"description" : "Pomiar {}".format(item+1),
 			"raw_value": "{}".format(temp),
-			"eng_value": temp
+			"value": temp
 		})
 		add_fdata(pomiar)

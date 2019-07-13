@@ -8,4 +8,4 @@ class FdataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fdata
-        fields = ("id", "name", "description", "owner", "raw_value", "eng_value")
+        fields = ("id", "name", "description", "owner", "value")
