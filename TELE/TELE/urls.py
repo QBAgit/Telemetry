@@ -16,9 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
-from Main.views import MainView
+from Main.views import MainView, FdataListView, FdataView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', MainView.as_view(), name="index"),
+    url(r'^api/v1/fdata/$', FdataListView.as_view()),
+    url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', FdataView.as_view()),
+
 ]

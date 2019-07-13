@@ -7,12 +7,14 @@
 </head>
   <body>
       {% block header %}
-
+      Active User: {{ user }}
       <h1>Open Telemetry </h1>
       <img src="{% static "./cos.png" %}">
       {% endblock %}
       {% block content %}
       {% endblock %}
+
+
 
   </body>
 </html>
