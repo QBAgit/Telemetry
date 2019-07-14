@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 
 
 class FdataSerializer(serializers.ModelSerializer):
-    # owner = serializers.ReadOnlyField(source='owner.username')
-    owner = serializers.SlugRelatedField(slug_field='id', queryset=User.objects.all())
+    owner = serializers.ReadOnlyField(source='owner.username')
 
     class Meta:
         model = Fdata
