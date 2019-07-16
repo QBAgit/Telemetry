@@ -1,14 +1,15 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
 from Main.models import Fdata
 from .serializers import FdataSerializer, UserSerializer
 from django.contrib.auth.models import User
+from django.contrib.auth import views as auth_views, logout
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth.models import User
 from rest_framework import permissions
 # Create your views here.
 
@@ -17,6 +18,19 @@ class MainView(View):
        ctx = {"f_sensors": Fdata.objects.all()}
        return render(request, "all_sensors.html",ctx)
 
+class UserLogin(auth_views.LoginView):
+
+    template_name = "login_user.html"
+    redirect_field_name = "index"
+
+class UserLogout(View):
+
+    def get(self, request):
+        return render(request, "logout_user.html")
+
+    def post(self, request):
+        logout(request)
+        return HttpResponseRedirect('/')
 
 class FdataListView(generics.ListCreateAPIView):
     """

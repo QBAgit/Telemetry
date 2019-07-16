@@ -22,6 +22,8 @@ from django.conf.urls import include
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.MainView.as_view(), name="index"),
+    url(r'^login/$', views.UserLogin.as_view(), name="login"),
+    path('logout/', views.UserLogout.as_view(), name="logout"),
     url(r'^api/v1/fdata/$', views.FdataListView.as_view()),
     url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', views.FdataView.as_view()),
     url(r'^api/v1/users/$', views.UserList.as_view()),
