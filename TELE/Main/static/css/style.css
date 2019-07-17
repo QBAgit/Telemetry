@@ -1,26 +1,39 @@
-h1 {
-  color: Blue;
+body {
+  font: 20px Montserrat, sans-serif;
+  line-height: 1.8;
+  color: #f5f6f7;
 }
-
-#tweet_summary {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 30%;
+p {font-size: 16px;}
+.margin {margin-bottom: 45px;}
+.bg-1 {
+  background-color: #95E0EF; /* Green */
+  color: #ffffff;
 }
-
-#tweet_summary td, #tweet_summary th {
-  border: 1px solid #ddd;
-  padding: 8px;
+.bg-2 {
+  background-color: #474e5d; /* Dark Blue */
+  color: #ffffff;
 }
-
-#tweet_summary tr:nth-child(even){background-color: #f2f2f2;}
-
-#tweet_summary tr:hover {background-color: #ddd;}
-
-#tweet_summary th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: blue;
-  color: white;
+.bg-3 {
+  background-color: #ffffff; /* White */
+  color: #555555;
+}
+.bg-4 {
+  background-color: #2f2f2f; /* Black Gray */
+  color: #fff;
+}
+.container-fluid {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+.navbar {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+  font-size: 12px;
+  letter-spacing: 5px;
+}
+.navbar-nav  li a:hover {
+  color: #1abc9c !important;
 }
