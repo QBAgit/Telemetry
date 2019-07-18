@@ -11,17 +11,38 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
+from django.http import JsonResponse
+
 # Create your views here.
 
 class MainView(View):
    def get(self, request):
        ctx = {"f_sensors": Fdata.objects.all()}
-       return render(request, "all_sensors.html",ctx)
+       return render(request, "base.html",ctx)
 
 class UserLogin(auth_views.LoginView):
 
     template_name = "login_user.html"
     redirect_field_name = "index"
+
+    def form_invalid(self, form):
+        response = super(UserLogin, self).form_invalid(form)
+        if self.request.is_ajax():
+            return JsonResponse(form.errors, status=400)
+        else:
+            return response
+
+    def form_valid(self, form):
+        response = super(UserLogin  , self).form_valid(form)
+        if self.request.is_ajax():
+            print(form.cleaned_data)
+            data = {
+                'message': "Successfully submitted form data."
+            }
+            return JsonResponse(data)
+        else:
+            return response
+
 
 class UserLogout(View):
 

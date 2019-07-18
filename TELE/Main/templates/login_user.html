@@ -1,12 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form action="" method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="Login">
-</form>
+<!-- Second Container -->
+<div class="container-fluid bg-3 text-left">
 
-<p style="color:red;">{{ error }}</p>
+  <div class="row content">
+  <div class="col-sm-3 sidenav">
+    <h2>Formularz z templeta</h2>
+  </div>
+  <div class="col-sm-6 text-left">
+      <form class="my-ajax-form" method='POST' action='.' data-url='{{ request.build_absolute_uri|safe }}'>
+          {% csrf_token %}
+          {{form.as_p|safe}}
+          <button type='submit'>Submit</button>
+      </form>
+  </div>
+  <div class="col-sm-3 sidenav">
+    <h3>i jak...?</h3>
+  </div>
 
-{% endblock %}
+</div>
+
+</div>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
