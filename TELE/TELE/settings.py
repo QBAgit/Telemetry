@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGIN_REDIRECT_URL = '/'
+AUTH_USER_MODEL = 'registration.User'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_extensions',
     'Main',
+    'registration',
 ]
 
 MIDDLEWARE = [
