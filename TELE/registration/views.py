@@ -16,9 +16,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 import json
 
 
-def home(request):
-	return render(request, 'home.html')
-
 def logoutUser(request):
 	logout(request)
 	return HttpResponse(json.dumps({"message": "Success"}),content_type="application/json")
@@ -44,7 +41,7 @@ def loginUser(request):
 
 def signup(request):
 	if request.user.is_authenticated:
-		return redirect('home/')
+		return redirect('/')
 	if request.method == 'POST':
 		fname = request.POST.get('first_name')
 		lname = request.POST.get('last_name')

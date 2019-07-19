@@ -18,30 +18,23 @@ from django.urls import path
 from django.conf.urls import url
 from Main import views
 from django.conf.urls import include
-
-from registration.views import home, loginUser, logoutUser, signup
-
+from registration.views import loginUser, logoutUser, signup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^tiny/$', views.TinyTest),
     url(r'^$', views.MainView.as_view(), name="index"),
     url(r'^api/v1/fdata/$', views.FdataListView.as_view()),
     url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', views.FdataView.as_view()),
     # url(r'^api/v1/users/$', views.UserList.as_view()),
     # url(r'^api/v1/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
-
 ]
-
 
 urlpatterns += [
     path('api-auth/', include('rest_framework.urls')),
 ]
 
-
 # Myapp user registration
 urlpatterns += [
-	path('home/',home),
     path('login/',loginUser),
     path('logout/', logoutUser),
     path('signup/',signup),

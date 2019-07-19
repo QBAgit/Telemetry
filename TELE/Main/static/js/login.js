@@ -59,7 +59,7 @@ $(document).ready(function(){
         success : function(data){
             console.log(data['message']);
             if(data['message'] == "Success"){
-                window.location = "/home/"
+                window.location = "/"
             }
             else{
                 if("email" in data['message'])
