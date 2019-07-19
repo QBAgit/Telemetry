@@ -5,7 +5,7 @@ from django.views.generic import ListView
 from Main.models import Fdata
 from .serializers import FdataSerializer, UserSerializer
 from django.contrib.auth.models import User
-from django.contrib.auth import views as auth_views, logout
+from django.contrib.auth import views as auth_views, authenticate, login, logout
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -28,6 +28,19 @@ def TinyTest(request):
         form = TinyFormTest(request.POST)
         if form.is_valid():
             data = {'msg':'sukces', 'form_data': form.cleaned_data}
+
+            u = form.cleaned_data['name']
+            p = form.cleaned_data['description']
+
+            user = authenticate(username=u, password=p)
+
+            if user is not None:
+                # user authenticated
+                login(request, user)
+                data.update({"active_user":u, "login_status":"ok"})
+            else:
+                data.update({"login_status": "failed"})
+
             return JsonResponse(data)
     ctx = {'form': form}
     return render(request, "tiny.html",ctx)
