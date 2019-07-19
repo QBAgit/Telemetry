@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from django.http import JsonResponse
+from .forms import TinyFormTest
 
 # Create your views here.
 
@@ -19,6 +20,17 @@ class MainView(View):
    def get(self, request):
        ctx = {"f_sensors": Fdata.objects.all()}
        return render(request, "base.html",ctx)
+
+
+def TinyTest(request):
+    form = TinyFormTest
+    if request.is_ajax():
+        form = TinyFormTest(request.POST)
+        if form.is_valid():
+            data = {'msg':'sukces', 'form_data': form.cleaned_data}
+            return JsonResponse(data)
+    ctx = {'form': form}
+    return render(request, "tiny.html",ctx)
 
 class UserLogin(auth_views.LoginView):
 

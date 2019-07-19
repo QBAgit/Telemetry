@@ -21,6 +21,7 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^tiny/$', views.TinyTest),
     url(r'^$', views.MainView.as_view(), name="index"),
     url(r'^login/$', views.UserLogin.as_view(), name="login"),
     url(r'^logout/$', views.UserLogout.as_view(), name="logout"),
