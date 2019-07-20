@@ -2,6 +2,7 @@
 $(document).ready(function(){
 
     document.getElementById("login_button").onclick = function() {login()};
+    document.getElementById("logout_button").onclick = function() {logout()};
     document.getElementById("signup_button").onclick = function() {signup()};
 
     function login(){
@@ -30,6 +31,24 @@ $(document).ready(function(){
                 }
             }
         });
+    }
+
+    function logout(){
+        csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+        $.ajax({
+            type:"POST",
+            url:'/logout/',
+            data:{
+                'csrfmiddlewaretoken': csrfmiddlewaretoken,
+            },
+            success: function(data){
+                console.log(data);
+                if(data['message'] == "Success"){
+                    location.reload();
+                }
+            }
+
+        })
     }
 
     function signup(){

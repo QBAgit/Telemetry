@@ -30,10 +30,12 @@
 
         {% if not request.user.is_authenticated %}
         <li>
-          <a href="#" data-toggle="modal" data-target="#myModal">Login</a>
+          <a href="#" data-toggle="modal" data-target="#LoginModal">Login</a>
         </li>
         {% else %}
-        <li><a href="#">{{ user }}</a></li>
+        <li><a href="#">Dash Bord</a></li>
+        <li><a href="#">Options</a></li>
+        <li><a href="#" data-toggle="modal" data-target="#LogoutModal">{{ user }}</a></li>
         {% endif %}
          
       </ul>
@@ -68,7 +70,7 @@
 
 
 <!-- Signup/Login Modal -->
-<div id="myModal" class="modal fade loginM" role="dialog">
+<div id="LoginModal" class="modal fade loginM" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
 
@@ -86,7 +88,7 @@
       
       </div>
       <!-- End of Header: Login / Register Tabs   -->
-
+      
       <!-- Body: Login Form / SignUp Form -->
       <div class="modal-body">
         <div class="tab-content">
@@ -104,10 +106,11 @@
                 <input type="password" name="password" class="form-control log-mod" id="exampleInputPassword" placeholder="Password" />
                 <p id="errorlogin" style="color:red"></p>
               </div>
+              <button type="button" id="login_button" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod">Login</button>
+              <button type="button" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
 
-              <button type="button" id="login_button" class="btn btn-primary btn-lg btn-block login-btn log-mod">Login</button>
-              <button type="button" class="btn btn-primary btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
             </form>
+
             <!-- End of Login Form -->
           </div>
 
@@ -144,8 +147,8 @@
                   <input type="password" class="form-control log-mod" id="exampleInputPassword2" placeholder="Password" />
                 </div>
                 
-                <button type="button" id="signup_button" class="btn btn-primary btn-lg btn-block login-btn mb-2 mt-2 log-mod">Sign up</button>
-                <button type="button" class="btn btn-primary btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
+                <button type="button" id="signup_button" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod">Sign up</button>
+                <button type="button" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
 
                   {% csrf_token %}
                 </form>
@@ -159,6 +162,26 @@
   </div>
 </div>
 <!-- End of Signup/Login Modal -->
+
+
+<!-- Logout Modal -->
+<div class="modal fade" id="LogoutModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <p class="log-labels">Are you sure you want to logout?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="logout_button" type="button" class="btn btn-default" data-dismiss="modal">Logout</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<!-- End of Logout Modal -->
 
 </body>
 </html>
