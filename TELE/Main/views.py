@@ -4,8 +4,8 @@ from django.views import View
 from django.views.generic import ListView
 from Main.models import Fdata
 from .serializers import FdataSerializer, UserSerializer
-from django.contrib.auth.models import User
-from django.contrib.auth import views as auth_views, authenticate, login, logout
+from registration.models import User
+
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response

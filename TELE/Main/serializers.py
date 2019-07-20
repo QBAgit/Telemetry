@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from Main.models import Fdata
-from django.contrib.auth.models import User
+from registration.models import User
 
 
 class FdataSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
+    owner = serializers.ReadOnlyField(source='owner.email')
 
     class Meta:
         model = Fdata
