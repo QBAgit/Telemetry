@@ -87,12 +87,6 @@
       </div>
       <!-- End of Header: Login / Register Tabs   -->
 
-      <style type="text/css">
-        input{
-          max-width:500px;
-        }
-      </style>
-
       <!-- Body: Login Form / SignUp Form -->
       <div class="modal-body">
         <div class="tab-content">
@@ -100,19 +94,19 @@
             <!-- Login Form -->
             <form class='login-form'>
               <div class="form-group">
-                <label for="exampleInputUsername">Email</label>
-                <input type="email" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="Email">
+                <label class="log-labels" for="exampleInputUsername">Email</label>
+                <input type="email" class="form-control log-mod" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="Email">
                 <small id="emailHelp" class="form-text text-muted">Enter your registred E-mail ID</small>
               </div>
 
               <div class="form-group">
-                <label for="exampleInputPassword">Password</label>
-                <input type="password" name="password" class="form-control" id="exampleInputPassword" placeholder="Password" />
-                <div id="errorlogin" style="color:red"></div>
+                <label class="log-labels" for="exampleInputPassword">Password</label>
+                <input type="password" name="password" class="form-control log-mod" id="exampleInputPassword" placeholder="Password" />
+                <p id="errorlogin" style="color:red"></p>
               </div>
 
-              <button type="button" id="login_button" class="btn btn-primary btn-lg btn-block login-btn" style="max-width:500px">Login</button>
-              <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mb-2 mt-2" style="max-width:500px" data-dismiss="modal">Close</button>
+              <button type="button" id="login_button" class="btn btn-primary btn-lg btn-block login-btn log-mod">Login</button>
+              <button type="button" class="btn btn-primary btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
             </form>
             <!-- End of Login Form -->
           </div>
@@ -123,45 +117,41 @@
               <!-- SignUp Form -->
               <form class='login-form'>
                 <div class="form-group">
-                  <div id="errorname" style="color:red"></div>
-                  <label for="exampleInputFname">First Name</label>
-                  <input type="text" class="form-control" id="exampleInputFname" aria-describedby="emailHelp" placeholder="First Name">
+                  <p id="errorname" style="color:red"></p>
+                  <label class="log-labels" for="exampleInputFname">First Name</label>
+                  <input type="text" class="form-control log-mod" id="exampleInputFname" aria-describedby="emailHelp" placeholder="First Name">
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputLname">Last Name</label>
-                  <input type="text" class="form-control" id="exampleInputLname" aria-describedby="emailHelp" placeholder="Last Name">
+                  <label class="log-labels" for="exampleInputLname">Last Name</label>
+                  <input type="text" class="form-control log-mod" id="exampleInputLname" aria-describedby="emailHelp" placeholder="Last Name">
                 </div>
 
                 <div class="form-group">
-                  <div id="erroremail" style="color:red"></div>
-                  <label for="exampleInputEmail">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+                  <p id="erroremail" style="color:red"></p>
+                  <label class="log-labels" for="exampleInputEmail">Email address</label>
+                  <input type="email" class="form-control log-mod" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter email">
                 </div>
                   
                 <div class="form-group">
-                  <div id="errorpass" style="color:red"></div>
-                  <label for="exampleInputPassword1">Create Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                  <p id="errorpass" style="color:red"></p>
+                  <label class="log-labels" for="exampleInputPassword1">Create Password</label>
+                  <input type="password" class="form-control log-mod" id="exampleInputPassword1" placeholder="Password" />
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputPassword2">Confirm Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" />
+                  <label class="log-labels" for="exampleInputPassword2">Confirm Password</label>
+                  <input type="password" class="form-control log-mod" id="exampleInputPassword2" placeholder="Password" />
                 </div>
                 
-                <button type="button" id="signup_button" class="btn btn-primary btn-lg btn-block login-btn mb-2 mt-2" style="max-width:500px">Sign up</button>
-                <button type="button" class="btn btn-secondary btn-lg btn-block login-btn mb-2 mt-2" style="max-width:500px" data-dismiss="modal">Close</button>
+                <button type="button" id="signup_button" class="btn btn-primary btn-lg btn-block login-btn mb-2 mt-2 log-mod">Sign up</button>
+                <button type="button" class="btn btn-primary btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
 
                   {% csrf_token %}
                 </form>
                 <!--End of SignUp Form -->
-            </div>
-            
-          </div>
-          
-          
-
+            </div>          
+          </div>         
         </div>
       </div>
       <!-- End of Body: Login Form / SignUp Form -->
