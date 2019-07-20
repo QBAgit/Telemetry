@@ -44,22 +44,34 @@
 </nav>
 
 <!-- First Container -->
-<div id ="Cont1" class="container-fluid bg-1 text-center">
-  <div id="logo">
-      <h3 class="margin">Measure</h3>
-      <img src="{% static "./IOT.png" %}" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="300">
-  </div>
-  
-  <div id="DashBord">
-    <h3>Hi {{ user }} !</h3>
-    <p>You will find all your sensors data here:</p>
-    <span id="DashBordData"></span>
-  </div>
+<div id ="Cont1" class="container-fluid bg-1">
 
-  <div id="Options">
-    <h3>Hi {{ user }} !</h3>
-    <p>You can setup your sensors here:</p>
-  </div>
+  <div class="row content">
+      <div class="col-sm-3 sidenav">
+        <!-- SPARE -->
+      </div>
+      <div class="col-sm-6 text-center">
+          <div id="logo">
+              <h1 class="margin">Measure</h1>
+              <img src="{% static "./IOT.png" %}" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="300">
+              <h2>Visualize and Analyze your Data </h2>
+          </div>
+          <div id="DashBord">
+            <h3>Hi {{ user }} !</h3>
+            <p>You will find all your sensors data bellow</p>
+            <br>
+            <span id="DashBordData"></span>
+          </div>
+          <div id="Options">
+            <h3>Hi {{ user }} !</h3>
+            <p>You can setup your sensors here:</p>
+          </div>
+      </div>
+      <div class="col-sm-3 sidenav">
+        <!-- SPARE -->
+      </div>
+    </div>
+
 </div>
 
 
