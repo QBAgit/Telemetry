@@ -33,8 +33,8 @@
           <a href="#" data-toggle="modal" data-target="#LoginModal">Login</a>
         </li>
         {% else %}
-        <li><a href="#">Dash Bord</a></li>
-        <li><a href="#">Options</a></li>
+        <li><a id="DashBord_Link" href="#">Dash Bord</a></li>
+        <li><a id="Options_Link"href="#">Options</a></li>
         <li><a href="#" data-toggle="modal" data-target="#LogoutModal">{{ user }}</a></li>
         {% endif %}
          
@@ -45,8 +45,20 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Measure</h3>
-  <img src="{% static "./IOT.png" %}" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="300">
+  <div id="logo">
+      <h3 class="margin">Measure</h3>
+      <img src="{% static "./IOT.png" %}" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="300">
+  </div>
+  
+  <div id="DashBord">
+    <h3>Hi {{ user }} !</h1>
+    <p>You will find all your sensors data here:</p>
+  </div>
+
+  <div id="Options">
+    <h3>Hi {{ user }} !</h1>
+    <p>You can setup your sensors here:</p>
+  </div>
 </div>
 
 
@@ -88,7 +100,7 @@
       
       </div>
       <!-- End of Header: Login / Register Tabs   -->
-      
+
       <!-- Body: Login Form / SignUp Form -->
       <div class="modal-body">
         <div class="tab-content">

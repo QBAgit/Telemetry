@@ -1,65 +1,25 @@
-function csrfSafeMethod(method) {
-    // these HTTP methods do not require CSRF protection
-    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-}
-
-function getCookie(name) {
-    var cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        var cookies = document.cookie.split(';');
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
 
 $(document).ready(function(){
     console.log("Siema zaczynamy")
-    console.log("CSRF loaded")
-
-    var $myForm = $("#tiny-form")
-    $myForm.submit(function(event){
-        event.preventDefault()
-        var $formData = $(this).serialize()
-        var $thisURL = $myForm.attr('data-url') || window.location.href // or set your own url
-        var csrftoken = getCookie('csrftoken');
     
-        $.ajaxSetup({
-            beforeSend: function(xhr, settings) {
-                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
-                }
-            }
-        });
+    dashbord = document.getElementById("DashBord").hidden = true;
+    options = document.getElementById("Options").hidden = true;
 
-        $.ajax({
-            method: "POST",
-            url: $thisURL,
-            data: $formData,
-            success: handleFormSuccess,
-            error: handleFormError,
-        })
+    var $Dashbord_link = $("#DashBord_Link");
+    $Dashbord_link.click(function(event){
+        event.preventDefault()
+        $Logo = $("#logo")[0].hidden = true;  
+        $DashBord = $('#DashBord')[0].hidden = false;
+        $Options = $('#Options')[0].hidden = true;
     })
 
-    function handleFormSuccess(data, textStatus, jqXHR){
-        console.log(data)
-        console.log(textStatus)
-        console.log(jqXHR)
-        // $myForm.reset(); // reset form data
-    }
-
-    function handleFormError(jqXHR, textStatus, errorThrown){
-        console.log(jqXHR)
-        console.log(textStatus)
-        console.log(errorThrown)
-    }
-
+    var $Options_Link = $("#Options_Link");
+    $Options_Link.click(function(event){
+        event.preventDefault()
+        $Logo = $("#logo")[0].hidden = true;
+        $DashBord = $('#DashBord')[0].hidden = true;false
+        $Options = $('#Options')[0].hidden = false;
+    })
 
 
 })
