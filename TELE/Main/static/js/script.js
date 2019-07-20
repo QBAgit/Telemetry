@@ -8,6 +8,27 @@ function show_main(){
         var $main = $('#DashBordData');
         $main.html(''); // Clear element
 
+        var fDivTitles = $('<div>'); //Row Div container
+        fDivTitles.addClass('row');
+
+        var fDiv1 = $('<div>'); //Col Div container
+        fDiv1.addClass('col-sm-3');
+        fDiv1.text("Name");
+
+        var fDiv2 = $('<div>'); //Col Div container
+        fDiv2.addClass('col-sm-6');
+        fDiv2.text("Description");
+
+        var fDiv3 = $('<div>'); //Col Div container
+        fDiv3.addClass('col-sm-3');
+        fDiv3.text("Value");
+
+        // add to Main Div
+        fDivTitles.append(fDiv1,fDiv2,fDiv3);
+
+        // add to Container
+        $main.append(fDivTitles);
+
         // Itterate with data
         for(var i=0;i<fdata.length;i++){
             var f = fdata[i];
