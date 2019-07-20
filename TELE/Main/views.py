@@ -44,6 +44,22 @@ class FdataView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = FdataSerializer
 
 
+class FuserDataView(APIView):
+    """
+    List User float measures , or create new one.
+    """
+    def get(self, request, format=None):
+        FUserData = Fdata.objects.filter(owner = request.user)
+        serializer = FdataSerializer(FUserData, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = FdataSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 # class UserList(generics.ListAPIView):
 #     queryset = User.objects.all()
 #     serializer_class = UserSerializer

@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^$', views.MainView.as_view(), name="index"),
     url(r'^api/v1/fdata/$', views.FdataListView.as_view()),
     url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', views.FdataView.as_view()),
+    url(r'^api/v1/userfdata/$', views.FuserDataView.as_view()),
     # url(r'^api/v1/users/$', views.UserList.as_view()),
     # url(r'^api/v1/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 ]
