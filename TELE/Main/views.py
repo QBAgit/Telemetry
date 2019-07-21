@@ -2,8 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
-from Main.models import Fdata
-from .serializers import FdataSerializer, UserSerializer
+from Main.models import Fdata, Sensor
+from .serializers import FdataSerializer
 from registration.models import User
 
 from rest_framework import generics
@@ -12,8 +12,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import permissions
 from django.http import JsonResponse
-from .forms import TinyFormTest
 
+from itertools import chain
 # Create your views here.
 
 class MainView(View):
@@ -49,7 +49,17 @@ class FuserDataView(APIView):
     List User float measures , or create new one.
     """
     def get(self, request, format=None):
-        FUserData = Fdata.objects.filter(owner = request.user)
+        # Get all user sensors
+        UserSensors = Sensor.objects.filter(owner = request.user)
+
+        ListQSets = []
+        
+        # Get all sensors data
+        for sen in UserSensors:
+            ListQSets.append(Fdata.objects.filter(sensor = sen))
+        
+        FUserData = list(chain(*ListQSets))
+
         serializer = FdataSerializer(FUserData, many=True)
         return Response(serializer.data)
 
