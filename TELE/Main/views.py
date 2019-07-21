@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic import ListView
 from Main.models import Fdata, Sensor
-from .serializers import FdataSerializer
+from .serializers import FdataSerializer, UserSensorSerializer
 from registration.models import User
 
 from rest_framework import generics
@@ -53,7 +53,7 @@ class FuserDataView(APIView):
         UserSensors = Sensor.objects.filter(owner = request.user)
 
         ListQSets = []
-        
+
         # Get all sensors data
         for sen in UserSensors:
             ListQSets.append(Fdata.objects.filter(sensor = sen))
@@ -69,6 +69,25 @@ class FuserDataView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserSensorList(APIView):
+    """
+    List all User sensors , or create new one.
+    """
+    def get(self, request, format=None):
+        # Get all user sensors
+        UserSensors = Sensor.objects.filter(owner = request.user)
+        serializer = UserSensorSerializer(UserSensors, many=True)
+        return Response(serializer.data)
+    
+        def post(self, request, format=None):
+            serializer = UserSensorSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 # class UserList(generics.ListAPIView):
 #     queryset = User.objects.all()

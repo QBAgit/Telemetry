@@ -1,4 +1,4 @@
-function show_main(){
+function show_Dashbord(){
     // GET user data using REST API
     $.get('/api/v1/userfdata/',function(fdata){
         console.log("Dupo Debug Dashbord:")
@@ -64,6 +64,15 @@ function show_main(){
     });
 }
 
+function show_Options(){
+   // GET user sensors using REST API
+   $.get('/api/v1/usersensors/',function(sensors){
+        console.log("Dupo Debug show_Options:")
+        console.log(sensors)
+
+    });
+}
+
 
 $(document).ready(function(){
     console.log("Siema zaczynamy")
@@ -83,7 +92,7 @@ $(document).ready(function(){
         $Cont1.removeClass("bg-1").addClass("bg-4")
 
         // Wywolanie
-        $(show_main);
+        $(show_Dashbord);
 
     })
 
@@ -93,6 +102,9 @@ $(document).ready(function(){
         $Logo = $("#logo")[0].hidden = true;
         $DashBord = $('#DashBord')[0].hidden = true;false
         $Options = $('#Options')[0].hidden = false;
+
+        // Wywolanie
+        $(show_Options);
     })
 
 
