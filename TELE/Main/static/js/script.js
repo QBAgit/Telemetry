@@ -70,6 +70,63 @@ function show_Options(){
         console.log("Dupo Debug show_Options:")
         console.log(sensors)
 
+        // document element Container to fill with data
+        var $main = $('#OptionSens');
+        $main.html(''); // Clear element
+
+        var fDivTitles = $('<div>'); //Row Div container
+        fDivTitles.addClass('row');
+
+        var fDiv1 = $('<div>'); //Col Div container
+        fDiv1.addClass('col-sm-3');
+        fDiv1.text("ID");
+
+        var fDiv2 = $('<div>'); //Col Div container
+        fDiv2.addClass('col-sm-3');
+        fDiv2.text("Name");
+
+        var fDiv3 = $('<div>'); //Col Div container
+        fDiv3.addClass('col-sm-6');
+        fDiv3.text("Description");
+
+        // add to Main Div
+        fDivTitles.append(fDiv1,fDiv2,fDiv3);
+
+        // add to Container
+        $main.append(fDivTitles);
+
+        // Itterate with data
+        for(var i=0;i<sensors.length;i++){
+            var s = sensors[i];
+
+            // Create Bootstrap Grid
+            var fDivMain = $('<div>'); //Row Div container
+            fDivMain.addClass('row');
+
+            var fDiv1 = $('<div>'); //Col Div container
+            fDiv1.addClass('col-sm-3');
+            fDiv1.text(s['id']);
+            fDiv1.attr('sensors-id', s['id']);
+            fDiv1.css('cursor','pointer');
+            fDiv1.click(function(){
+                // Action when single s data item clicked
+                alert($(this))
+            })
+
+            var fDiv2 = $('<div>'); //Col Div container
+            fDiv2.addClass('col-sm-3');
+            fDiv2.text(s['name']);
+
+            var fDiv3 = $('<div>'); //Col Div container
+            fDiv3.addClass('col-sm-6');
+            fDiv3.text(s['description']);
+
+            // add to Main Div
+            fDivMain.append(fDiv1,fDiv2,fDiv3);
+
+            // add to Container
+            $main.append(fDivMain);
+        }     
     });
 }
 
@@ -102,6 +159,10 @@ $(document).ready(function(){
         $Logo = $("#logo")[0].hidden = true;
         $DashBord = $('#DashBord')[0].hidden = true;false
         $Options = $('#Options')[0].hidden = false;
+
+        // Change css for Dashbord parent container
+        $Cont1 = $('#Cont1')
+        $Cont1.removeClass("bg-1").addClass("bg-4")
 
         // Wywolanie
         $(show_Options);
