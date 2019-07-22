@@ -5,7 +5,7 @@ from django.views.generic import ListView
 from Main.models import Fdata, Sensor
 from .serializers import FdataSerializer, UserSensorSerializer
 from registration.models import User
-
+from django.shortcuts import get_object_or_404
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -81,19 +81,19 @@ class UserSensorList(APIView):
         serializer = UserSensorSerializer(UserSensors, many=True)
         return Response(serializer.data)
     
-        def post(self, request, format=None):
-            serializer = UserSensorSerializer(data=request.data)
-            if serializer.is_valid():
-                serializer.save()
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, format=None):
+        serializer = UserSensorSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-# class UserList(generics.ListAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+class SensorfData(APIView):
+    """Display all sensor data by sensor ID"""
 
-
-# class UserDetail(generics.RetrieveAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
+    def get(self, request, *args, **kwargs):
+        sensor = get_object_or_404(Sensor, id=kwargs.pop("pk"))
+        SensorData = Fdata.objects.filter(sensor = sensor)
+        serializer = FdataSerializer(SensorData, many=True)
+        return Response(serializer.data)
