@@ -1,15 +1,18 @@
+/**
+ * Create <span> with Bootstrap Grid based on data
+ * from REST API
+ * @param {url to fetch data i.e. '/api/v1/usersensors/'} rest_api_url 
+ * @param {destination html element ID i.e. '#OptionSens'} span_id 
+ * @param {list of objects defining collumns. i.e [{name:"ID",data_key:"id",class:"col-sm-3"}]} collumns 
+ * @param {function name to handlle signle table row click event} click_handler
+ */
+
 function show_BordData(
     rest_api_url, 
     span_id,
     collumns,
     click_handler
     ){
-
-    // example usage
-    // rest_api_url = '/api/v1/usersensors/';
-    // span_id = '#OptionSens'
-    // collumn_names = {co1_1:"ID",col_2:"Name",col_3:"Description"}
-    // data_keys = {co1_1:"id",col_2:"name",col_3:"description"}
 
     // GET data f REST API
     $.get(rest_api_url,function(data){
@@ -23,6 +26,7 @@ function show_BordData(
     var fDivTitles = $('<div>'); //Row Div container
     fDivTitles.addClass('row');
 
+    // Header with collumn titles
     for(var i=0;i<collumns.length;i++){
         var colDiv = $('<div>');
         colDiv.addClass(collumns[i].class);
@@ -33,18 +37,19 @@ function show_BordData(
     // add to Container
     $main.append(fDivTitles);
 
-    // Itterate with data
+    // Itterate with data - create rows
     for(var i=0;i<=data.length;i++){
         var item = data[i];
         console.log(item);
 
-            // Create Bootstrap Grid
-        var fDivMain = $('<div>'); //Row Div container
+        // Create Bootstrap Grid for single row
+        var fDivMain = $('<div>');
         fDivMain.addClass('row');
         fDivMain.attr('sensor-id', item["id"]);
         fDivMain.click(click_handler);
         fDivMain.css('cursor','pointer');
 
+        // Add collumns for current row
         for(var j=0;j<collumns.length;j++){
             var colDiv = $('<div>');
             colDiv.addClass(collumns[j].class);
@@ -58,6 +63,7 @@ function show_BordData(
       
     });
 }
+
 
 function OptionClick(){
     console.log("Dupo Debug OptionClick")

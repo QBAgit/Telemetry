@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', views.FdataView.as_view()),
     url(r'^api/v1/userfdata/$', views.FuserDataView.as_view()),
     url(r'^api/v1/usersensors/$', views.UserSensorList.as_view()),
+    url(r'^api/v1/sensordata/(?P<pk>[0-9]+)/$', views.SensorfData.as_view()),
     # url(r'^api/v1/users/$', views.UserList.as_view()),
     # url(r'^api/v1/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
 ]

@@ -4,12 +4,11 @@ from registration.models import User
 
 
 class FdataSerializer(serializers.ModelSerializer):
-    # owner = serializers.ReadOnlyField(source='owner.email')
     sensor = serializers.ReadOnlyField(source='sensor.name')
 
     class Meta:
         model = Fdata
-        fields = ("id", "sensor", "value")
+        fields = ("id", "sensor", "value", "timestamp")
 
 class UserSensorSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.email')
