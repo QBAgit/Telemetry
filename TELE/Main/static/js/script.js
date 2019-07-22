@@ -49,15 +49,14 @@ function show_BordData(
         // Create Bootstrap Grid
         var fDivMain = $('<div>'); //Row Div container
         fDivMain.addClass('row');
-        fDivMain.click(click_handler)
+        fDivMain.attr('sensor-id', item["id"]);
+        fDivMain.click(click_handler);
+        fDivMain.css('cursor','pointer');
 
         var fDiv1 = $('<div>'); //Col Div container
         fDiv1.addClass('col-sm-3');
         fDiv1.text(item[data_keys.COL_1]);
-        fDiv1.attr('data-id', item[data_keys.COL_1]);
-        fDiv1.css('cursor','pointer');
-        // fDiv1.click(click_handler)
-
+        
         var fDiv2 = $('<div>'); //Col Div container
         fDiv2.addClass('col-sm-3');
         fDiv2.text(item[data_keys.COL_2]);
@@ -75,6 +74,15 @@ function show_BordData(
     });
 }
 
+function OptionClick(){
+    console.log("Dupo Debug OptionClick")
+    console.log($(this));
+}
+
+function DashBordClick(){
+    console.log("Dupo Debug DashBordClick")
+    console.log($(this));
+}
 
 $(document).ready(function(){
     console.log("Siema zaczynamy")
@@ -99,9 +107,7 @@ $(document).ready(function(){
             span_id = '#DashBordData',
             collumn_names = {COL_1:"Name",COL_2:"Description",COL_3:"Value"},
             data_keys = {COL_1:"name",COL_2:"description",COL_3:"value"},
-            click_handler = function(){
-                console.log($(this))
-            }
+            click_handler = DashBordClick
             ));
 
 
@@ -123,10 +129,8 @@ $(document).ready(function(){
             rest_api_url = '/api/v1/usersensors/',
             span_id = '#OptionSens',
             collumn_names = {COL_1:"ID",COL_2:"Name",COL_3:"Description"},
-            data_keys = {COL_1:"id",COL_2:"name",COL_3:"description"},
-            click_handler = function(){
-                console.log($(this))
-            }
+            data_keys = {COL_1:"id",COL_2:"name",COL_3:"description"},          
+            click_handler = OptionClick
             ));
     })
 })
