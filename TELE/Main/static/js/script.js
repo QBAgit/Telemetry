@@ -1,132 +1,77 @@
-function show_Dashbord(){
-    // GET user data using REST API
-    $.get('/api/v1/userfdata/',function(fdata){
-        console.log("Dupo Debug Dashbord:")
-        console.log(fdata)
+function show_BordData(
+    rest_api_url, 
+    span_id,
+    collumn_names,
+    data_keys,
+    click_handler
+    ){
 
-        // document element Container to fill with data
-        var $main = $('#DashBordData');
-        $main.html(''); // Clear element
+    // example usage
+    // rest_api_url = '/api/v1/usersensors/';
+    // span_id = '#OptionSens'
+    // collumn_names = {co1_1:"ID",col_2:"Name",col_3:"Description"}
+    // data_keys = {co1_1:"id",col_2:"name",col_3:"description"}
 
-        var fDivTitles = $('<div>'); //Row Div container
-        fDivTitles.addClass('row');
+    // GET data f REST API
+    $.get(rest_api_url,function(data){
+    console.log("Dupo Debug show_BordData:")
+    console.log(data)
 
-        var fDiv1 = $('<div>'); //Col Div container
-        fDiv1.addClass('col-sm-3');
-        fDiv1.text("Name");
+    // document element Container to fill with data
+    var $main = $(span_id);
+    $main.html(''); // Clear element
 
-        var fDiv2 = $('<div>'); //Col Div container
-        fDiv2.addClass('col-sm-6');
-        fDiv2.text("Description");
+    var fDivTitles = $('<div>'); //Row Div container
+    fDivTitles.addClass('row');
 
-        var fDiv3 = $('<div>'); //Col Div container
-        fDiv3.addClass('col-sm-3');
-        fDiv3.text("Value");
+    var fDiv1 = $('<div>'); //Col Div container
+    fDiv1.addClass('col-sm-3');
+    fDiv1.text(collumn_names.COL_1);
 
-        // add to Main Div
-        fDivTitles.append(fDiv1,fDiv2,fDiv3);
+    var fDiv2 = $('<div>'); //Col Div container
+    fDiv2.addClass('col-sm-3');
+    fDiv2.text(collumn_names.COL_2);
 
-        // add to Container
-        $main.append(fDivTitles);
+    var fDiv3 = $('<div>'); //Col Div container
+    fDiv3.addClass('col-sm-6');
+    fDiv3.text(collumn_names.COL_3);
 
-        // Itterate with data
-        for(var i=0;i<fdata.length;i++){
-            var f = fdata[i];
+    // add to Main Div
+    fDivTitles.append(fDiv1,fDiv2,fDiv3);
 
-            // Create Bootstrap Grid
-            var fDivMain = $('<div>'); //Row Div container
-            fDivMain.addClass('row');
+    // add to Container
+    $main.append(fDivTitles);
 
-            var fDiv1 = $('<div>'); //Col Div container
-            fDiv1.addClass('col-sm-3');
-            fDiv1.text(f['name']);
-            fDiv1.attr('fdata-id', f['id']);
-            fDiv1.css('cursor','pointer');
-            fDiv1.click(function(){
-                // Action when single f data item clicked
-                alert($(this))
-            })
+    // Itterate with data
+    for(var i=0;i<data.length;i++){
+        var item = data[i];
 
-            var fDiv2 = $('<div>'); //Col Div container
-            fDiv2.addClass('col-sm-6');
-            fDiv2.text(f['description']);
-
-            var fDiv3 = $('<div>'); //Col Div container
-            fDiv3.addClass('col-sm-3');
-            fDiv3.text(f['value']);
-
-            // add to Main Div
-            fDivMain.append(fDiv1,fDiv2,fDiv3);
-
-            // add to Container
-            $main.append(fDivMain);
-        }        
-    });
-}
-
-function show_Options(){
-   // GET user sensors using REST API
-   $.get('/api/v1/usersensors/',function(sensors){
-        console.log("Dupo Debug show_Options:")
-        console.log(sensors)
-
-        // document element Container to fill with data
-        var $main = $('#OptionSens');
-        $main.html(''); // Clear element
-
-        var fDivTitles = $('<div>'); //Row Div container
-        fDivTitles.addClass('row');
+        // Create Bootstrap Grid
+        var fDivMain = $('<div>'); //Row Div container
+        fDivMain.addClass('row');
+        fDivMain.click(click_handler)
 
         var fDiv1 = $('<div>'); //Col Div container
         fDiv1.addClass('col-sm-3');
-        fDiv1.text("ID");
+        fDiv1.text(item[data_keys.COL_1]);
+        fDiv1.attr('data-id', item[data_keys.COL_1]);
+        fDiv1.css('cursor','pointer');
+        // fDiv1.click(click_handler)
 
         var fDiv2 = $('<div>'); //Col Div container
         fDiv2.addClass('col-sm-3');
-        fDiv2.text("Name");
+        fDiv2.text(item[data_keys.COL_2]);
 
         var fDiv3 = $('<div>'); //Col Div container
         fDiv3.addClass('col-sm-6');
-        fDiv3.text("Description");
+        fDiv3.text(item[data_keys.COL_3]);
 
         // add to Main Div
-        fDivTitles.append(fDiv1,fDiv2,fDiv3);
+        fDivMain.append(fDiv1,fDiv2,fDiv3);
 
         // add to Container
-        $main.append(fDivTitles);
-
-        // Itterate with data
-        for(var i=0;i<sensors.length;i++){
-            var s = sensors[i];
-
-            // Create Bootstrap Grid
-            var fDivMain = $('<div>'); //Row Div container
-            fDivMain.addClass('row');
-
-            var fDiv1 = $('<div>'); //Col Div container
-            fDiv1.addClass('col-sm-3');
-            fDiv1.text(s['id']);
-            fDiv1.attr('sensors-id', s['id']);
-            fDiv1.css('cursor','pointer');
-            fDiv1.click(function(){
-                // Action when single s data item clicked
-                alert($(this))
-            })
-
-            var fDiv2 = $('<div>'); //Col Div container
-            fDiv2.addClass('col-sm-3');
-            fDiv2.text(s['name']);
-
-            var fDiv3 = $('<div>'); //Col Div container
-            fDiv3.addClass('col-sm-6');
-            fDiv3.text(s['description']);
-
-            // add to Main Div
-            fDivMain.append(fDiv1,fDiv2,fDiv3);
-
-            // add to Container
-            $main.append(fDivMain);
-        }     
+        $main.append(fDivMain);
+    }   
     });
 }
 
@@ -149,7 +94,16 @@ $(document).ready(function(){
         $Cont1.removeClass("bg-1").addClass("bg-4")
 
         // Wywolanie
-        $(show_Dashbord);
+        $(show_BordData(
+            rest_api_url = '/api/v1/usersensors/',
+            span_id = '#DashBordData',
+            collumn_names = {COL_1:"Name",COL_2:"Description",COL_3:"Value"},
+            data_keys = {COL_1:"name",COL_2:"description",COL_3:"value"},
+            click_handler = function(){
+                console.log($(this))
+            }
+            ));
+
 
     })
 
@@ -165,8 +119,14 @@ $(document).ready(function(){
         $Cont1.removeClass("bg-1").addClass("bg-4")
 
         // Wywolanie
-        $(show_Options);
+        $(show_BordData(
+            rest_api_url = '/api/v1/usersensors/',
+            span_id = '#OptionSens',
+            collumn_names = {COL_1:"ID",COL_2:"Name",COL_3:"Description"},
+            data_keys = {COL_1:"id",COL_2:"name",COL_3:"description"},
+            click_handler = function(){
+                console.log($(this))
+            }
+            ));
     })
-
-
 })
