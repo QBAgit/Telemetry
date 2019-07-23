@@ -31,9 +31,6 @@ class FdataListView(generics.ListCreateAPIView):
     queryset = Fdata.objects.all()
     serializer_class = FdataSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
 
 class FdataView(generics.RetrieveUpdateDestroyAPIView):
     """Display float ID measure"""
