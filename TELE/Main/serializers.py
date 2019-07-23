@@ -16,10 +16,3 @@ class UserSensorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sensor
         fields = ("id", "name", "description", "owner")
-
-# class UserSerializer(serializers.ModelSerializer):
-#     Fdata = serializers.PrimaryKeyRelatedField(many=True, queryset=Fdata.objects.all())
-
-#     class Meta:
-#         model = User
-#         fields = ('id', 'username', 'Fdata')

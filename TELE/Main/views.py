@@ -71,22 +71,30 @@ class FuserDataView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserSensorList(APIView):
+class UserSensorList(generics.ListCreateAPIView):
     """
-    List all User sensors , or create new one.
+    List all float measures or create a new measure
     """
-    def get(self, request, format=None):
-        # Get all user sensors
-        UserSensors = Sensor.objects.filter(owner = request.user)
-        serializer = UserSensorSerializer(UserSensors, many=True)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = Sensor.objects.all()
+    serializer_class = UserSensorSerializer
+
+    # override list metod from listModelMixin(object)
+    # to show only logon user sensors
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        queryset = self.filter_queryset(Sensor.objects.filter(owner = request.user))
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
     
-    def post(self, request, format=None):
-        serializer = UserSensorSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class SensorfData(APIView):
