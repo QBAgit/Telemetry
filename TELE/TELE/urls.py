@@ -23,9 +23,9 @@ from registration.views import loginUser, logoutUser, signup
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.MainView.as_view(), name="index"),
-    url(r'^api/v1/fdata/$', views.FdataListView.as_view()),
+    url(r'^api/v1/fdata/$', views.FdataListView.as_view()), 
     url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', views.FdataView.as_view()),
-    url(r'^api/v1/userfdata/$', views.FuserDataView.as_view()),
+    # url(r'^api/v1/userfdata/$', views.FuserDataView.as_view()),
     url(r'^api/v1/usersensors/$', views.UserSensorList.as_view()),
     url(r'^api/v1/sensordata/(?P<pk>[0-9]+)/$', views.SensorfData.as_view()),
     # url(r'^api/v1/users/$', views.UserList.as_view()),
