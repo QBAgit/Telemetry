@@ -68,8 +68,31 @@ function show_BordData(
 function OptionClick(){
     console.log("Dupo Debug OptionClick")
     console.log($(this));
-    idik = $(this).attr("sensor-id")
-    console.log(idik)
+    sensor_ID = $(this).attr("sensor-id")
+    console.log(sensor_ID)
+
+    // get current sensor data:
+    csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    $.ajax({
+        type:"GET",
+        url:'/api/v1/usersensors/' + sensor_ID,
+        data:{
+            'csrfmiddlewaretoken': csrfmiddlewaretoken,
+        },
+        success: function(data){
+            console.log("Dupo Debug OptionClick GET AJAX data")
+            console.log(data);
+
+            $("#sensorName").attr("placeholder",data["name"])
+            $("#sensorDescription").attr("placeholder",data["description"])
+
+        }
+
+    })
+
+    $OptionsModal = $("#SensOptModal")
+    $OptionsModal.modal()
+
 }
 
 function DashBordClick(){

@@ -214,5 +214,36 @@
 </div>
 <!-- End of Logout Modal -->
 
+<!-- Sensor Update/Remove Modal -->
+
+<div class="modal fade" id="SensOptModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class='login-form'>
+          <div class="form-group">
+            <label class="log-labels" for="sensorName">Name</label>
+            <input type="text" class="form-control log-mod" id="sensorName" aria-describedby="emailHelp" placeholder="Name">
+          </div>
+
+          <div class="form-group">
+            <label class="log-labels" for="sensorDescription">Description</label>
+            <input type="text" name="sens_description" class="form-control log-mod" id="sensorDescription" placeholder="Description" />
+          </div>
+          <button type="button" id="sensor_update" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod">Update</button>
+          <button type="button" id="sensor_delete" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod">Delete</button>
+          <button type="button" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
+          {% csrf_token %}
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- End of Sensor Update/Remove Modal -->
+
 </body>
 </html>
