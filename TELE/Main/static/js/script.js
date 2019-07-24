@@ -75,8 +75,20 @@ function show_BordData(
         for(var j=0;j<collumns.length;j++){
             var colDiv = $('<div>');
             colDiv.addClass(collumns[j].class);
-            colDiv.text(item[collumns[j].data_key]);
-            fDivMain.append(colDiv)
+            
+            if(collumns[j].data_key === "value"){
+                sensor_ID = item["id"]
+                url = "api/v1/sensordata/"+sensor_ID+"/";
+                $.get(url,function(data){
+                    console.log(data);
+                    // colDiv.text(data[0]);
+                })
+            }
+            else{
+                colDiv.text(item[collumns[j].data_key]);
+            }
+
+            fDivMain.append(colDiv);
         }
 
         // add to Container
@@ -94,6 +106,7 @@ function show_DashBordData(){
         collumns = [
             {name:"Name",data_key:"name",class:"col-sm-3"},
             {name:"Description",data_key:"description",class:"col-sm-6"},
+            {name:"Value",data_key:"value",class:"col-sm-3"},
         ],
         click_handler = DashBordClick
         ));
@@ -210,7 +223,7 @@ $(document).ready(function(){
         $(show_OptionBordData());
     
     });
-    
+
     $("#sensor_update").click(sensupdate);
 })
 
