@@ -38,7 +38,7 @@ function show_BordData(
     $main.append(fDivTitles);
 
     // Itterate with data - create rows
-    for(var i=0;i<=data.length;i++){
+    for(var i=0;i<data.length;i++){
         var item = data[i];
         console.log(item);
 
@@ -68,6 +68,8 @@ function show_BordData(
 function OptionClick(){
     console.log("Dupo Debug OptionClick")
     console.log($(this));
+    idik = $(this).attr("sensor-id")
+    console.log(idik)
 }
 
 function DashBordClick(){

@@ -67,6 +67,15 @@ class UserSensorList(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
+class UserSensor(generics.RetrieveUpdateDestroyAPIView):
+    """Display Sensor"""
+
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    queryset = Sensor.objects.all()
+    serializer_class = UserSensorSerializer
+
+
 class SensorfData(APIView):
     """Display all sensor data based on sensor ID"""
 
