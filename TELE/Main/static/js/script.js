@@ -1,3 +1,25 @@
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+
 /**
  * Create <span> with Bootstrap Grid based on data
  * from REST API
@@ -64,34 +86,12 @@ function show_BordData(
     });
 }
 
-
 function sensupdate(){
     console.log("Dupo Debug sensupdate()")
     name = document.getElementById("sensorName").value;
     description = document.getElementById("sensorDescription").value;
 
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-        	        
     var csrftoken = getCookie('csrftoken');
-        	        
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
         	
     $.ajaxSetup({
         beforeSend: function(xhr, settings) {
@@ -111,13 +111,14 @@ function sensupdate(){
         success: function(data){
             console.log("Dupo Debug sensupdate PUT AJAX data")
             console.log(data);
+            $("#SensOptModal").modal('hide')
         },
         error: function (jqXHR, textStatus, errorThrown){
             console.log(jqXHR);
             console.log(textStatus);
             console.log(errorThrown);
         },
-    })
+    });
 }
 
 
