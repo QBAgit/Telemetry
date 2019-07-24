@@ -65,34 +65,77 @@ function show_BordData(
 }
 
 
+function sensupdate(){
+    console.log("Dupo Debug sensupdate()")
+    name = document.getElementById("sensorName").value;
+    description = document.getElementById("sensorDescription").value;
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+        	        
+    var csrftoken = getCookie('csrftoken');
+        	        
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+        	
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"PUT",
+        url:'/api/v1/usersensors/' + sensor_ID + '/',
+        data:{
+            'name': name,
+            'description': description,
+        },
+        success: function(data){
+            console.log("Dupo Debug sensupdate PUT AJAX data")
+            console.log(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown){
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        },
+    })
+}
+
+
 function OptionClick(){
     console.log("Dupo Debug OptionClick")
     console.log($(this));
     sensor_ID = $(this).attr("sensor-id")
     console.log(sensor_ID)
-
+    url = '/api/v1/usersensors/' + sensor_ID + '/'
     // get current sensor data:
-    csrfmiddlewaretoken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-    $.ajax({
-        type:"GET",
-        url:'/api/v1/usersensors/' + sensor_ID,
-        data:{
-            'csrfmiddlewaretoken': csrfmiddlewaretoken,
-        },
-        success: function(data){
-            console.log("Dupo Debug OptionClick GET AJAX data")
-            console.log(data);
-
-            $("#sensorName").attr("placeholder",data["name"])
-            $("#sensorDescription").attr("placeholder",data["description"])
-
-        }
-
+    $.get(url,function(data){
+        $("#sensorName").attr("placeholder",data["name"])
+        $("#sensorDescription").attr("placeholder",data["description"])
     })
 
     $OptionsModal = $("#SensOptModal")
     $OptionsModal.modal()
-
+    
 }
 
 function DashBordClick(){
@@ -103,6 +146,8 @@ function DashBordClick(){
 $(document).ready(function(){
     console.log("Siema zaczynamy")
     
+    document.getElementById("sensor_update").onclick = function() {sensupdate()};
+
     dashbord = document.getElementById("DashBord").hidden = true;
     options = document.getElementById("Options").hidden = true;
 
