@@ -86,6 +86,34 @@ function show_BordData(
     });
 }
 
+
+function show_DashBordData(){
+    $(show_BordData(
+        rest_api_url = '/api/v1/usersensors/',
+        span_id = '#DashBordData',
+        collumns = [
+            {name:"Name",data_key:"name",class:"col-sm-3"},
+            {name:"Description",data_key:"description",class:"col-sm-6"},
+        ],
+        click_handler = DashBordClick
+        ));
+}
+
+
+function show_OptionBordData(){
+    $(show_BordData(
+        rest_api_url = '/api/v1/usersensors/',
+        span_id = '#OptionSens',
+        collumns = [
+            {name:"ID",data_key:"id",class:"col-sm-3"},
+            {name:"Name",data_key:"name",class:"col-sm-3"},
+            {name:"Description",data_key:"description",class:"col-sm-6"}
+        ],
+        click_handler = OptionClick
+        ));
+}
+
+
 function sensupdate(){
     console.log("Dupo Debug sensupdate()")
     name = document.getElementById("sensorName").value;
@@ -111,6 +139,7 @@ function sensupdate(){
         success: function(data){
             console.log("Dupo Debug sensupdate PUT AJAX data")
             console.log(data);
+            $(show_OptionBordData());
             $("#SensOptModal").modal('hide')
         },
         error: function (jqXHR, textStatus, errorThrown){
@@ -139,61 +168,50 @@ function OptionClick(){
     
 }
 
+
 function DashBordClick(){
     console.log("Dupo Debug DashBordClick")
     console.log($(this));
 }
 
+
 $(document).ready(function(){
     console.log("Siema zaczynamy")
     
-    document.getElementById("sensor_update").onclick = function() {sensupdate()};
-
+    // Init
     dashbord = document.getElementById("DashBord").hidden = true;
     options = document.getElementById("Options").hidden = true;
 
-    var $Dashbord_link = $("#DashBord_Link");
-    $Dashbord_link.click(function(event){
+    // Setup Callbacks
+    $("#DashBord_Link").click(function(event){
         event.preventDefault()
         $Logo = $("#logo")[0].hidden = true;  
         $DashBord = $('#DashBord')[0].hidden = false;
         $Options = $('#Options')[0].hidden = true;
-
+    
         // Change css for Dashbord parent container
         $Cont1 = $('#Cont1')
         $Cont1.removeClass("bg-1").addClass("bg-4")
+    
+        $(show_DashBordData());
+    
+    });
 
-        $(show_BordData(
-            rest_api_url = '/api/v1/usersensors/',
-            span_id = '#DashBordData',
-            collumns = [
-                {name:"Name",data_key:"name",class:"col-sm-3"},
-                {name:"Description",data_key:"description",class:"col-sm-6"},
-            ],
-            click_handler = DashBordClick
-            ));
-    })
-
-    var $Options_Link = $("#Options_Link");
-    $Options_Link.click(function(event){
+    $("#Options_Link").click(function(event){
         event.preventDefault()
         $Logo = $("#logo")[0].hidden = true;
         $DashBord = $('#DashBord')[0].hidden = true;false
         $Options = $('#Options')[0].hidden = false;
-
+    
         // Change css for Dashbord parent container
         $Cont1 = $('#Cont1')
         $Cont1.removeClass("bg-1").addClass("bg-4")
-
-        $(show_BordData(
-            rest_api_url = '/api/v1/usersensors/',
-            span_id = '#OptionSens',
-            collumns = [
-                {name:"ID",data_key:"id",class:"col-sm-3"},
-                {name:"Name",data_key:"name",class:"col-sm-3"},
-                {name:"Description",data_key:"description",class:"col-sm-6"}
-            ],
-            click_handler = OptionClick
-            ));
-    })
+    
+        $(show_OptionBordData());
+    
+    });
+    
+    $("#sensor_update").click(sensupdate);
 })
+
+
