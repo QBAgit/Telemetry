@@ -77,11 +77,19 @@ function show_BordData(
             colDiv.addClass(collumns[j].class);
             
             if(collumns[j].data_key === "value"){
+                colDiv.text("null");
+                // add unique id i.e 'sens-id-4-val'
+                colDiv.attr('id','sens-id-'+ item["id"]+'-val')
+
                 sensor_ID = item["id"]
                 url = "api/v1/sensordata/"+sensor_ID+"/";
                 $.get(url,function(data){
-                    console.log(data);
-                    // colDiv.text(data[0]);
+                    if (data.length > 0){                   
+                        idik = data[0].sensor
+                        // get element by unique id
+                        $('#sens-id-'+ idik + '-val').text(data[0].value)
+                    }
+
                 })
             }
             else{
