@@ -243,8 +243,8 @@ $(document).ready(function(){
             datasets: [{
                 data: [13,20,25,30,40],
                 label: "Ogień",
-                borderColor: "red",
-                backgroundColor: "aqua",
+                borderColor: "white",
+                backgroundColor: "red",
                 fill: false
             }],
         }
