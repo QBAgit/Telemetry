@@ -173,8 +173,6 @@ function sensupdate(){
 
 
 function OptionClick(){
-    console.log("Dupo Debug OptionClick")
-    console.log($(this));
     sensor_ID = $(this).attr("sensor-id")
     console.log(sensor_ID)
     url = '/api/v1/usersensors/' + sensor_ID + '/'
@@ -190,9 +188,29 @@ function OptionClick(){
 }
 
 
+function plot(sensor)
+{
+    console.log(sensor)
+    var ctx = document.getElementById('myLineChart').getContext('2d');
+    var myLineChart = new Chart(ctx,{
+        type: "line",
+        backgroundColor: "white",
+        data: {
+            labels: [1,2,3,4,5],
+            datasets: [{
+                data: [13,20,25,30,40],
+                label: "Ogień",
+                borderColor: "white",
+                backgroundColor: "red",
+                fill: false
+            }],
+        }
+    });
+}
+
+
 function DashBordClick(){
-    console.log("Dupo Debug DashBordClick")
-    console.log($(this));
+    $(plot($(this)));
 }
 
 
@@ -233,22 +251,6 @@ $(document).ready(function(){
     });
 
     $("#sensor_update").click(sensupdate);
-
-    var ctx = document.getElementById('myLineChart').getContext('2d');
-    var myLineChart = new Chart(ctx,{
-        type: "line",
-        backgroundColor: "#1e35ab",
-        data: {
-            labels: [1,2,3,4,5],
-            datasets: [{
-                data: [13,20,25,30,40],
-                label: "Ogień",
-                borderColor: "white",
-                backgroundColor: "red",
-                fill: false
-            }],
-        }
-    });
 
 })
 
