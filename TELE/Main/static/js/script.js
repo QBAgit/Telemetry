@@ -191,21 +191,40 @@ function OptionClick(){
 function plot(sensor)
 {
     console.log(sensor)
-    var ctx = document.getElementById('myLineChart').getContext('2d');
-    var myLineChart = new Chart(ctx,{
-        type: "line",
-        backgroundColor: "white",
-        data: {
-            labels: [1,2,3,4,5],
-            datasets: [{
-                data: [13,20,25,30,40],
-                label: "Ogień",
-                borderColor: "white",
-                backgroundColor: "red",
-                fill: false
-            }],
-        }
-    });
+    sensor_ID = sensor.attr("sensor-id")
+    url = "api/v1/sensordata/"+sensor_ID+"/";
+    $.get(url,function(data){
+        console.log(data)
+
+        var mylabels = []
+        var mydata = []
+
+        data.forEach(x => mylabels.push(x.timestamp))
+        data.forEach(x => mydata.push(x.value))
+
+        var ctx = document.getElementById('myLineChart').getContext('2d');
+        var myLineChart = new Chart(ctx,{
+            type: "line",
+            color: "white",
+            backgroundColor: "white",
+            data: {
+                labels: mylabels,
+                datasets: [{
+                    data: mydata,
+                    label: "Ogień",
+                    borderColor: "white",
+                    backgroundColor: "red",
+                    fill: false
+                }],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: "Custom Chart Title",
+                }
+            },
+        });
+    })
 }
 
 
@@ -251,6 +270,8 @@ $(document).ready(function(){
     });
 
     $("#sensor_update").click(sensupdate);
+
+    // Chart.defaults.global.title.display = false;
 
 })
 
