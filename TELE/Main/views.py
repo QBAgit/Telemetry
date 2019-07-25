@@ -81,6 +81,6 @@ class SensorfData(APIView):
 
     def get(self, request, *args, **kwargs):
         sensor = get_object_or_404(Sensor, id=kwargs.pop("pk"))
-        SensorData = Fdata.objects.filter(sensor = sensor).order_by('-timestamp')
+        SensorData = Fdata.objects.filter(sensor = sensor).order_by('timestamp')
         serializer = FdataSerializer(SensorData, many=True)
         return Response(serializer.data)

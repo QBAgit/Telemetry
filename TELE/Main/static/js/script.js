@@ -87,7 +87,8 @@ function show_BordData(
                     if (data.length > 0){                   
                         idik = data[0].sensor
                         // get element by unique id
-                        $('#sens-id-'+ idik + '-val').text(data[0].value)
+                        fresh_value = data[data.length-1].value
+                        $('#sens-id-'+ idik + '-val').text(fresh_value)
                     }
 
                 })
