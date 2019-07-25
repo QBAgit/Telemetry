@@ -233,6 +233,23 @@ $(document).ready(function(){
     });
 
     $("#sensor_update").click(sensupdate);
+
+    var ctx = document.getElementById('myLineChart').getContext('2d');
+    var myLineChart = new Chart(ctx,{
+        type: "line",
+        backgroundColor: "#1e35ab",
+        data: {
+            labels: [1,2,3,4,5],
+            datasets: [{
+                data: [13,20,25,30,40],
+                label: "Ogień",
+                borderColor: "red",
+                backgroundColor: "aqua",
+                fill: false
+            }],
+        }
+    });
+
 })
 
 

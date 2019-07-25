@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
   <script src="{% static "./js/script.js" %}">dupa</script>
   <script src="{% static "./js/login.js" %}">dupa</script>
   <link rel="stylesheet" href="{% static "./css/style.css" %}">
@@ -59,7 +60,9 @@
       <span id="DashBordData"></span>  
     </div>
     <div class="col-sm-8 text-center">
-      <p>TBD</p>
+      <div class="chart-container" style="position: relative; height: 30vh; width: 50vw">
+        <canvas id="myLineChart"></canvas>
+      </div>
     </div>
   </div>
 
