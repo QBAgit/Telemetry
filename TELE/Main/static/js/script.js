@@ -77,7 +77,7 @@ function show_BordData(
             colDiv.addClass(collumns[j].class);
             
             if(collumns[j].data_key === "value"){
-                colDiv.text("null");
+                colDiv.text("no data");
                 // add unique id i.e 'sens-id-4-val'
                 colDiv.attr('id','sens-id-'+ item["id"]+'-val')
 
@@ -88,7 +88,11 @@ function show_BordData(
                         idik = data[0].sensor
                         // get element by unique id
                         fresh_value = data[data.length-1].value
-                        $('#sens-id-'+ idik + '-val').text(fresh_value)
+                        $val = $('#sens-id-'+ idik + '-val')
+                        
+                        $val.text(fresh_value)
+                        $val.parent().mouseenter(function() {$(this).addClass("shadow")})
+                        $val.parent().mouseleave(function() {$(this).removeClass("shadow")})
                     }
 
                 })
@@ -102,11 +106,18 @@ function show_BordData(
 
         // add to Container
         $main.append(fDivMain);
-        }
+        }   
       
     });
 }
 
+// function handle_mouseenter(){
+//     $(this).addClass("shadow")
+// }
+
+// function handle_mouseleave(){
+//     $(this).removeClass("shadow")
+// }
 
 function show_DashBordData(){
     $(show_BordData(
@@ -119,6 +130,17 @@ function show_DashBordData(){
         ],
         click_handler = DashBordClick
         ));
+    
+    // var DashBordData = document.getElementById("DashBordData").children
+
+    // for(var i=0;i<DashBordData.length;i++){
+    //     DashBordData[i].mouseenter(function(){
+    //         console.log("MOUSE ENTER:")
+    //         console.log($(this))
+    //     })
+    
+    // }
+
 }
 
 
@@ -272,7 +294,6 @@ $(document).ready(function(){
 
     $("#sensor_update").click(sensupdate);
 
-    // Chart.defaults.global.title.display = false;
 
 })
 
