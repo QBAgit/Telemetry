@@ -111,13 +111,6 @@ function show_BordData(
     });
 }
 
-// function handle_mouseenter(){
-//     $(this).addClass("shadow")
-// }
-
-// function handle_mouseleave(){
-//     $(this).removeClass("shadow")
-// }
 
 function show_DashBordData(){
     $(show_BordData(
@@ -130,17 +123,6 @@ function show_DashBordData(){
         ],
         click_handler = DashBordClick
         ));
-    
-    // var DashBordData = document.getElementById("DashBordData").children
-
-    // for(var i=0;i<DashBordData.length;i++){
-    //     DashBordData[i].mouseenter(function(){
-    //         console.log("MOUSE ENTER:")
-    //         console.log($(this))
-    //     })
-    
-    // }
-
 }
 
 
