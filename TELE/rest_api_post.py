@@ -1,34 +1,37 @@
 #!/usr/bin/env python3
 
 import requests
-import json
-import sys
 from random import randint
+import argparse
 
 BASE_API_URL = 'http://127.0.0.1:8000/api/v1/'
 
-def add_fdata(measure):
+def add_fdata(measure,u,p):
     global BASE_API_URL
-    req = requests.post('{}fdata/'.format(BASE_API_URL), measure)
+    req = requests.post('{}fdata/'.format(BASE_API_URL), data=measure, auth=(u,p))
     return req
 
 pomiar = {
-    "name": "TESTY",
-    "description": "Pomiar",
-    "owner": 1,
-    "value": 0
+    # Sensor ID
+    "sensor": 7,
+    "value": 66
 }
 
 if __name__ == "__main__":
-	print("Adding 5 random temps")
 
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-n", dest="n", required=True, help="number of values to be added")
+    parser.add_argument("-id", dest="id", required=True, help="sensor id")
+    parser.add_argument("-u", dest="u", required=True, help="username")
+    parser.add_argument("-p", dest="p", required=True, help="password")
 
+    args = parser.parse_args()
 
-    #for item in range(5):
-    #    temp = randint(0,100)
-    #    pomiar.update({
-    #        "description" : "Pomiar {}".format(item+1),
-    #        "raw_value": "{}".format(temp),
-    #        "value": temp
-    #    })
-    #    add_fdata(pomiar)
+    if args.n and args.u and args.p and args.id: 
+        print("Add {} random values".format(args.n))
+        for item in range(int(args.n)):
+            val = randint(0,100)
+            pomiar.update({"sensor":args.id,"value": val})
+            print(" * {}".format(add_fdata(pomiar,args.u,args.p).text))
+    else:
+        print("Missing parameters")
