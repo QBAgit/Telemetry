@@ -38,8 +38,6 @@ function show_BordData(
 
     // GET data f REST API
     $.get(rest_api_url,function(data){
-    console.log("Dupo Debug show_BordData:")
-    console.log(data)
 
     // document element Container to fill with data
     var $main = $(span_id);
@@ -62,7 +60,6 @@ function show_BordData(
     // Itterate with data - create rows
     for(var i=0;i<data.length;i++){
         var item = data[i];
-        console.log(item);
 
         // Create Bootstrap Grid for single row
         var fDivMain = $('<div>');
@@ -141,7 +138,6 @@ function show_OptionBordData(){
 
 
 function sensupdate(){
-    console.log("Dupo Debug sensupdate()")
     name = document.getElementById("sensorName").value;
     description = document.getElementById("sensorDescription").value;
 
@@ -163,8 +159,6 @@ function sensupdate(){
             'description': description,
         },
         success: function(data){
-            console.log("Dupo Debug sensupdate PUT AJAX data")
-            console.log(data);
             $(show_OptionBordData());
             $("#SensOptModal").modal('hide')
         },
@@ -179,7 +173,6 @@ function sensupdate(){
 
 function OptionClick(){
     sensor_ID = $(this).attr("sensor-id")
-    console.log(sensor_ID)
     url = '/api/v1/usersensors/' + sensor_ID + '/'
     // get current sensor data:
     $.get(url,function(data){
@@ -216,18 +209,18 @@ function plot(sensor)
                 labels: mylabels,
                 datasets: [{
                     data: mydata,
-                    label: "Ogień",
+                    // label: "Ogień",
                     borderColor: "white",
                     backgroundColor: "red",
                     fill: false
                 }],
             },
-            options: {
-                title: {
-                    display: true,
-                    text: "Custom Chart Title",
-                }
-            },
+            // options: {
+            //     title: {
+            //         display: true,
+            //         text: "Custom Chart Title",
+            //     }
+            // },
         });
     })
 }
@@ -235,6 +228,8 @@ function plot(sensor)
 
 function DashBordClick(){
     $(plot($(this)));
+    var sens = $(this).children()[1].textContent
+    $("#ChartTitle").text(sens)
 }
 
 
