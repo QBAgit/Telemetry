@@ -67,6 +67,9 @@ function show_BordData(
         fDivMain.attr('sensor-id', item["id"]);
         fDivMain.click(click_handler);
         fDivMain.css('cursor','pointer');
+        fDivMain.mouseenter(function() {$(this).addClass("shadow")})
+        fDivMain.mouseleave(function() {$(this).removeClass("shadow")})
+
 
         // Add collumns for current row
         for(var j=0;j<collumns.length;j++){
@@ -85,11 +88,8 @@ function show_BordData(
                         idik = data[0].sensor
                         // get element by unique id
                         fresh_value = data[data.length-1].value
-                        $val = $('#sens-id-'+ idik + '-val')
-                        
+                        $val = $('#sens-id-'+ idik + '-val')                       
                         $val.text(fresh_value)
-                        $val.parent().mouseenter(function() {$(this).addClass("shadow")})
-                        $val.parent().mouseleave(function() {$(this).removeClass("shadow")})
                     }
 
                 })
