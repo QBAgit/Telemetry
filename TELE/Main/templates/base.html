@@ -56,8 +56,7 @@
     <div class="col-sm-4 sidenav">
       <h3>Hi {{ user }} !</h3>
       <p>You will find all your sensors data bellow</p>
-      <br>
-      <span id="DashBordData"></span>  
+      <div id="DashBordData" class="sens-list"></div>  
     </div>
     <div class="col-sm-7 text-center">
       <div class="chart-container" style="position: relative">
@@ -80,8 +79,8 @@
       <div class="col-sm-6 text-center">
         <h3>Hi {{ user }} !</h3>
         <p>You can setup your sensors here:</p>
-        <br>
-        <span id="OptionSens"></span>         
+        <div id="OptionSens" class="sens-list"></div>
+        <button type="button" id="new_sensor" class="btn btn-default">Add new sensor</button>
       </div>
       <div class="col-sm-3 sidenav">
         <!-- SPARE -->
