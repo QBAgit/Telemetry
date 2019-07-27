@@ -1,0 +1,7 @@
+TODO:
+1-random token to uwierzytelaniania
+  wyrugować user i hasło. 
+  jak token czujnika z (requests.POST) zgadza sie z tokenem konta dodaj pomiar do bazy
+
+2-model Sensor mógłby mieć last_value
+  Dashbord nie musiałby wysyłać $.get() do pobrania wszystkich wartości (strata czasu)
