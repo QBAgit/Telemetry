@@ -171,6 +171,33 @@ function sensupdate(){
 }
 
 
+function sensdelete(){
+    var csrftoken = getCookie('csrftoken');
+    
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"DELETE",
+        url:'/api/v1/usersensors/' + sensor_ID + '/',
+        success: function(data){
+            $(show_OptionBordData());
+            $("#SensOptModal").modal('hide')
+        },
+        error: function (jqXHR, textStatus, errorThrown){
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        },
+    });
+}
+
+
 function OptionClick(){
     sensor_ID = $(this).attr("sensor-id")
     url = '/api/v1/usersensors/' + sensor_ID + '/'
@@ -270,8 +297,7 @@ $(document).ready(function(){
     });
 
     $("#sensor_update").click(sensupdate);
+    $("#sensor_delete").click(sensdelete);
 
 
 })
-
-
