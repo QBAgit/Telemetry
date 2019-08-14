@@ -12,7 +12,6 @@ class UserSensorSerializer(serializers.ModelSerializer):
 
 
 class FdataSerializer(serializers.ModelSerializer):
-    # sensor = serializers.ReadOnlyField(source='sensor.name')
     timestamp = serializers.ReadOnlyField()
 
     class Meta:

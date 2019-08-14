@@ -23,11 +23,6 @@ def logoutUser(request):
 def loginUser(request):
 	email= request.POST.get('email')
 	password = request.POST.get('password')
-	# stayloggedin = request.GET.get('stayloggedin')
-	# if stayloggedin == "true":
-	  #  pass
-	# else:
-	  #  request.session.set_expiry(0)
 	user = authenticate(email=email, password=password)
 	if user is not None:
 		if user.is_active:

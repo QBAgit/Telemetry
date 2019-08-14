@@ -29,7 +29,7 @@ function csrfSafeMethod(method) {
  * @param {function name to handlle signle table row click event} click_handler
  */
 
-function show_BordData(
+function show_BoardData(
     rest_api_url, 
     span_id,
     collumns,
@@ -109,22 +109,22 @@ function show_BordData(
 }
 
 
-function show_DashBordData(){
-    $(show_BordData(
+function show_DashBoardData(){
+    $(show_BoardData(
         rest_api_url = '/api/v1/usersensors/',
-        span_id = '#DashBordData',
+        span_id = '#DashBoardData',
         collumns = [
             {name:"Name",data_key:"name",class:"col-sm-3"},
             {name:"Description",data_key:"description",class:"col-sm-6"},
             {name:"Value",data_key:"value",class:"col-sm-3"},
         ],
-        click_handler = DashBordClick
+        click_handler = DashBoardClick
         ));
 }
 
 
 function show_OptionBordData(){
-    $(show_BordData(
+    $(show_BoardData(
         rest_api_url = '/api/v1/usersensors/',
         span_id = '#OptionSens',
         collumns = [
@@ -273,24 +273,17 @@ function plot(sensor)
                 labels: mylabels,
                 datasets: [{
                     data: mydata,
-                    // label: "Ogień",
                     borderColor: "white",
                     backgroundColor: "red",
                     fill: false
                 }],
             },
-            // options: {
-            //     title: {
-            //         display: true,
-            //         text: "Custom Chart Title",
-            //     }
-            // },
         });
     })
 }
 
 
-function DashBordClick(){
+function DashBoardClick(){
     $(plot($(this)));
     var sens = $(this).children()[1].textContent
     $("#ChartTitle").text(sens)
@@ -301,31 +294,31 @@ $(document).ready(function(){
     console.log("Siema zaczynamy")
     
     // Init
-    dashbord = document.getElementById("DashBord").hidden = true;
+    DashBoard = document.getElementById("DashBoard").hidden = true;
     options = document.getElementById("Options").hidden = true;
 
     // Setup Callbacks
-    $("#DashBord_Link").click(function(event){
+    $("#DashBoard_Link").click(function(event){
         event.preventDefault()
         $Logo = $("#logo")[0].hidden = true;  
-        $DashBord = $('#DashBord')[0].hidden = false;
+        $DashBoard = $('#DashBoard')[0].hidden = false;
         $Options = $('#Options')[0].hidden = true;
     
-        // Change css for Dashbord parent container
+        // Change css for DashBoard parent container
         $Cont1 = $('#Cont1')
         $Cont1.removeClass("bg-1").addClass("bg-4")
     
-        $(show_DashBordData());
+        $(show_DashBoardData());
     
     });
 
     $("#Options_Link").click(function(event){
         event.preventDefault()
         $Logo = $("#logo")[0].hidden = true;
-        $DashBord = $('#DashBord')[0].hidden = true;false
+        $DashBoard = $('#DashBoard')[0].hidden = true;false
         $Options = $('#Options')[0].hidden = false;
     
-        // Change css for Dashbord parent container
+        // Change css for DashBoard parent container
         $Cont1 = $('#Cont1')
         $Cont1.removeClass("bg-1").addClass("bg-4")
     

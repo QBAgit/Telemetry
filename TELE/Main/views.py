@@ -54,8 +54,7 @@ class UserSensorList(generics.ListCreateAPIView):
     # to show only logon user sensors
 
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        queryset = self.filter_queryset(Sensor.objects.filter(owner = request.user))
+        queryset = self.filter_queryset(self.get_queryset()).filter(owner = request.user)
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -83,29 +82,29 @@ class SensorfData(APIView):
     def get(self, request, *args, **kwargs):
       
         sensor = get_object_or_404(Sensor, id=kwargs.pop("pk"))
-        SensorData = Fdata.objects.filter(sensor = sensor)
+        sensorData = Fdata.objects.filter(sensor = sensor)
 
         try:
             start_date = request.GET["from"]
             end_date = request.GET["to"]
-            SensorData = SensorData.filter(timestamp__gte = start_date, timestamp__lte = end_date)
+            sensorData = sensorData.filter(timestamp__gte = start_date, timestamp__lte = end_date)
         except MultiValueDictKeyError as e:
             print(e)
             try:
                 start_date = request.GET["from"]
-                SensorData = SensorData.filter(timestamp__gte = start_date)
+                sensorData = sensorData.filter(timestamp__gte = start_date)
             except MultiValueDictKeyError as e:
                 print(e)
         
             try:
                 end_date = request.GET["to"]
-                SensorData = SensorData.filter(timestamp__lte = end_date)
+                sensorData = sensorData.filter(timestamp__lte = end_date)
             except MultiValueDictKeyError as e:
                 print(e)
 
         finally:
-            SensorData = SensorData.order_by('timestamp')
-            serializer = FdataSerializer(SensorData, many = True)
+            sensorData = sensorData.order_by('timestamp')
+            serializer = FdataSerializer(sensorData, many = True)
             return Response(serializer.data)
     
     @staticmethod

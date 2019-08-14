@@ -6,13 +6,12 @@ import argparse
 
 BASE_API_URL = 'http://127.0.0.1:8000/api/v1/'
 
-def add_fdata(measure,u,p):
+def add_fdata(measure,user,password):
     global BASE_API_URL
-    req = requests.post('{}fdata/'.format(BASE_API_URL), data=measure, auth=(u,p))
+    req = requests.post('{}fdata/'.format(BASE_API_URL), data=measure, auth=(user,password))
     return req
 
-pomiar = {
-    # Sensor ID
+measurement = {
     "sensor": 7,
     "value": 66
 }
@@ -30,8 +29,8 @@ if __name__ == "__main__":
     if args.n and args.u and args.p and args.id: 
         print("Add {} random values".format(args.n))
         for item in range(int(args.n)):
-            val = randint(0,100)
-            pomiar.update({"sensor":args.id,"value": val})
-            print(" * {}".format(add_fdata(pomiar,args.u,args.p).text))
+            random_number = randint(0,100)
+            measurement.update({"sensor":args.id,"value": random_number})
+            print(" * {}".format(add_fdata(measurement,args.u,args.p).text))
     else:
         print("Missing parameters")

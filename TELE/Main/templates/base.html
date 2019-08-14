@@ -34,7 +34,7 @@
           <a href="#" data-toggle="modal" data-target="#LoginModal">Login</a>
         </li>
         {% else %}
-        <li><a id="DashBord_Link" href="#">Dash Bord</a></li>
+        <li><a id="DashBoard_Link" href="#">Dash Board</a></li>
         <li><a id="Options_Link"href="#">Options</a></li>
         <li><a href="#" data-toggle="modal" data-target="#LogoutModal">{{ user }}</a></li>
         {% endif %}
@@ -52,11 +52,11 @@
     <h2>Visualize and Analyze your Data </h2>
   </div>
 
-  <div id="DashBord" class="row content">
+  <div id="DashBoard" class="row content">
     <div class="col-sm-4 sidenav">
       <h3>Hi {{ user }} !</h3>
       <p>You will find all your sensors data bellow</p>
-      <div id="DashBordData" class="sens-list"></div>  
+      <div id="DashBoardData" class="sens-list"></div>  
     </div>
     <div class="col-sm-7 text-center">
       <div class="chart-container" style="position: relative">
