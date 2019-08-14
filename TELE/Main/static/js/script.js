@@ -250,7 +250,7 @@ function OptionClick(){
 }
 
 
-function plot(sensor)
+function plot(sensor, from, to)
 {
     console.log(sensor)
     sensor_ID = sensor.attr("sensor-id")
@@ -283,10 +283,29 @@ function plot(sensor)
 }
 
 
+function replotchart(){
+    $from = $('#FilterFrom').val()
+    $to = $('#FilterTo').val()
+
+    alert($from + $to)
+
+}
+
 function DashBoardClick(){
     $(plot($(this)));
     var sens = $(this).children()[1].textContent
     $("#ChartTitle").text(sens)
+
+    // add settings button
+    var $OptionButton = $("#ChartSettings");
+    $OptionButton.html(''); // Clear element
+    var button = $('<input type="button" value="Settings"/>');
+    button.addClass("btn btn-default")
+    button.attr('data-toggle','modal')
+    button.attr('data-target','#ChartModModal')   
+    $OptionButton.append(button)
+    $('#chart_mod_title').text("Settings: " + sens)
+
 }
 
 
@@ -315,7 +334,7 @@ $(document).ready(function(){
     $("#Options_Link").click(function(event){
         event.preventDefault()
         $Logo = $("#logo")[0].hidden = true;
-        $DashBoard = $('#DashBoard')[0].hidden = true;false
+        $DashBoard = $('#DashBoard')[0].hidden = true;
         $Options = $('#Options')[0].hidden = false;
     
         // Change css for DashBoard parent container
@@ -329,6 +348,6 @@ $(document).ready(function(){
     $("#sensor_update").click(sensupdate);
     $("#sensor_delete").click(sensdelete);
     $("#sensor_create").click(sensadd);
-
+    $("#chart_mod").click(replotchart);
 
 })
