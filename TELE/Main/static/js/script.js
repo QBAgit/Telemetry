@@ -1,3 +1,5 @@
+dashBoardChart = null
+
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -120,6 +122,23 @@ function show_DashBoardData(){
         ],
         click_handler = DashBoardClick
         ));
+    
+    var ctx = document.getElementById('myLineChart').getContext('2d');
+    window.dashBoardChart = new Chart(ctx,{
+        type: "line",
+        color: "white",
+        backgroundColor: "white",
+        data: {
+            // labels: [],
+            datasets: [{
+                // data: [],
+                borderColor: "white",
+                backgroundColor: "red",
+                fill: false
+            }],
+        },
+    });
+
 }
 
 
@@ -250,49 +269,61 @@ function OptionClick(){
 }
 
 
-function plot(sensor, from, to)
-{
-    console.log(sensor)
-    sensor_ID = sensor.attr("sensor-id")
-    url = "api/v1/sensordata/"+sensor_ID+"/";
-    $.get(url,function(data){
-        console.log(data)
+function updateChart(chart, label, data){
+    chart.data.labels = label;
+    chart.data.datasets[0].data = data;
+    chart.update();
+}
 
+
+function removeData(chart) {
+    do{
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+    } while (dashBoardChart.data.labels.length > 0);
+
+    chart.update();
+}
+
+function plot(sensor_ID, from, to)
+{
+    if (from == "" && to == ""){
+        url = "api/v1/sensordata/" + sensor_ID + "/";
+    } else if (to == ""){
+        url = "api/v1/sensordata/" + sensor_ID+"/" + "?from=" + from;
+    } else if (from == ""){
+        url = "api/v1/sensordata/" + sensor_ID+"/" + "?to=" + to;
+    } else{
+        url = "api/v1/sensordata/" + sensor_ID+"/" + "?from=" + from + "&to=" + to;
+    }
+    
+    $.get(url,function(data){
         var mylabels = []
         var mydata = []
-
         data.forEach(x => mylabels.push(x.timestamp))
         data.forEach(x => mydata.push(x.value))
 
-        var ctx = document.getElementById('myLineChart').getContext('2d');
-        var myLineChart = new Chart(ctx,{
-            type: "line",
-            color: "white",
-            backgroundColor: "white",
-            data: {
-                labels: mylabels,
-                datasets: [{
-                    data: mydata,
-                    borderColor: "white",
-                    backgroundColor: "red",
-                    fill: false
-                }],
-            },
-        });
+        updateChart(window.dashBoardChart,mylabels,mydata)
     })
 }
 
 
 function replotchart(){
-    $from = $('#FilterFrom').val()
-    $to = $('#FilterTo').val()
-
-    alert($from + $to)
-
+    from = $('#FilterFrom').val()
+    to = $('#FilterTo').val()
+    sensor_ID = $('#myLineChart').attr("displayed-sensor-id")
+    plot(sensor_ID, from, to)
+    $('#ChartModModal').modal('hide')
 }
 
 function DashBoardClick(){
-    $(plot($(this)));
+    sensor_ID = $(this).attr("sensor-id")
+    // save current sesnor id as html attrubute
+    $('#myLineChart').attr("displayed-sensor-id", sensor_ID)
+    // plot sensor chart
+    $(plot(sensor_ID));
     var sens = $(this).children()[1].textContent
     $("#ChartTitle").text(sens)
 
