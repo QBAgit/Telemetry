@@ -80,7 +80,7 @@
         <h3>Hi {{ user }} !</h3>
         <p>You can setup your sensors here:</p>
         <div id="OptionSens" class="sens-list"></div>
-        <button type="button" id="new_sensor" class="btn btn-default">Add new sensor</button>
+        <button type="button" id="new_sensor" data-toggle="modal" data-target="#NewSensModal" class="btn btn-default">Add new sensor</button>
       </div>
       <div class="col-sm-3 sidenav">
         <!-- SPARE -->
@@ -118,7 +118,6 @@
   </div>
 
 </div>
-
 
 
 <!-- Signup/Login Modal -->
@@ -235,8 +234,8 @@
 </div>
 <!-- End of Logout Modal -->
 
-<!-- Sensor Update/Remove Modal -->
 
+<!-- Sensor Update/Remove Modal -->
 <div class="modal fade" id="SensOptModal" role="dialog">
   <div class="modal-dialog">
   
@@ -263,8 +262,38 @@
     </div>
   </div>
 </div>
-
 <!-- End of Sensor Update/Remove Modal -->
+
+
+<!-- New Sensor Modal -->
+<div class="modal fade" id="NewSensModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class='login-form'>
+          
+          <div class="form-group">
+            <label class="log-labels" for="NewSensorName">Name</label>
+            <input type="text" class="form-control log-mod" id="NewSensorName" aria-describedby="emailHelp" placeholder="Name">
+          </div>
+
+          <div class="form-group">
+            <label class="log-labels" for="NewSensorDescription">Description</label>
+            <input type="text" name="sens_description" class="form-control log-mod" id="NewSensorDescription" placeholder="Description" />
+          </div>
+
+          <button type="button" id="sensor_create" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod">Create</button>
+          <button type="button" class="btn btn-default btn-lg btn-block login-btn mb-2 mt-2 log-mod" data-dismiss="modal">Close</button>
+          {% csrf_token %}
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- End of New Sensor Modal -->
 
 </body>
 </html>

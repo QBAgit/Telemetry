@@ -198,6 +198,43 @@ function sensdelete(){
 }
 
 
+function sensadd(){
+        
+    name = document.getElementById("NewSensorName").value;
+    description = document.getElementById("NewSensorDescription").value;
+
+
+    var csrftoken = getCookie('csrftoken');
+        	
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $.ajax({
+        type:"POST",
+        url:'/api/v1/usersensors/',
+        data:{
+            'name': name,
+            'description': description,
+        },
+        success: function(data){
+            $(show_OptionBordData());
+            $("#NewSensModal").modal('hide')
+        },
+        error: function (jqXHR, textStatus, errorThrown){
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        },
+    });
+
+}
+
+
 function OptionClick(){
     sensor_ID = $(this).attr("sensor-id")
     url = '/api/v1/usersensors/' + sensor_ID + '/'
@@ -298,6 +335,7 @@ $(document).ready(function(){
 
     $("#sensor_update").click(sensupdate);
     $("#sensor_delete").click(sensdelete);
+    $("#sensor_create").click(sensadd);
 
 
 })
