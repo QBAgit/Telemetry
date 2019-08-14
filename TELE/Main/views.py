@@ -13,6 +13,7 @@ from rest_framework import status
 from rest_framework import permissions
 from django.http import JsonResponse
 
+
 from itertools import chain
 # Create your views here.
 
@@ -80,7 +81,21 @@ class SensorfData(APIView):
     """Display all sensor data based on sensor ID"""
 
     def get(self, request, *args, **kwargs):
+
+        start_date = SensorfData.parse_date(kwargs.pop("from"))
+        # end_date = SensorfData.parse_date(kwargs.pop("to"))
+        
         sensor = get_object_or_404(Sensor, id=kwargs.pop("pk"))
-        SensorData = Fdata.objects.filter(sensor = sensor).order_by('timestamp')
-        serializer = FdataSerializer(SensorData, many=True)
+        SensorData = Fdata.objects.filter(sensor = sensor)
+        SensorData = SensorData.filter(timestamp__gte = start_date).order_by('timestamp')
+        serializer = FdataSerializer(SensorData, many = True)
         return Response(serializer.data)
+    
+    @staticmethod
+    def parse_date(sdate):
+        """
+        Function parse date stored as string (yyyy-mm-dd) and return datetime.date object
+        """
+        from datetime import date
+        std = sdate.split("-")
+        return date(year = int(std[0]), month = int(std[1]), day = int(std[2]))
