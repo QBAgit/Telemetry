@@ -20,9 +20,6 @@ from Main import views
 from django.conf.urls import include
 from registration.views import loginUser, logoutUser, signup
 
-# date format (yyyy-mm-dd)
-date_format = r'([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.MainView.as_view(), name="index"),
@@ -30,8 +27,7 @@ urlpatterns = [
     url(r'^api/v1/fdata/(?P<pk>[0-9]+)/$', views.FdataView.as_view()),
     url(r'^api/v1/usersensors/$', views.UserSensorList.as_view()),
     url(r'^api/v1/usersensors/(?P<pk>[0-9]+)/$', views.UserSensor.as_view()),
-    url(r'^api/v1/sensordata/(?P<pk>[0-9]+)/(?P<from>{})/$'.format(date_format), views.SensorfData.as_view()),
-    # url(r'^api/v1/sensordata/(?P<pk>[0-9]+)/$', views.SensorfData.as_view()),
+    url(r'^api/v1/sensordata/(?P<pk>[0-9]+)/$', views.SensorfData.as_view()),
 ]
 
 urlpatterns += [
