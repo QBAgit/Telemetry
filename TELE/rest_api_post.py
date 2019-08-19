@@ -32,7 +32,8 @@ if __name__ == "__main__":
         for item in range(int(args.n)):
             random_number = randint(0,100)
             measurement.update({"sensor":args.id, "token": args.token ,"value": random_number})
-            print(" * {}".format(add_fdata(measurement).text))
+            resp = add_fdata(measurement)
+            print(" * {} : {}".format(resp.status_code, resp.text))
             time.sleep(5)
     else:
         print("Missing parameters")
