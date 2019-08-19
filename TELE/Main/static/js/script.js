@@ -147,9 +147,10 @@ function show_OptionBordData(){
         rest_api_url = '/api/v1/usersensors/',
         span_id = '#OptionSens',
         collumns = [
-            {name:"ID",data_key:"id",class:"col-sm-3"},
-            {name:"Name",data_key:"name",class:"col-sm-3"},
-            {name:"Description",data_key:"description",class:"col-sm-6"}
+            {name:"ID",data_key:"id",class:"col-sm-2"},
+            {name:"Token",data_key:"token",class:"col-sm-4"},
+            {name:"Name",data_key:"name",class:"col-sm-2"},
+            {name:"Description",data_key:"description",class:"col-sm-4"}
         ],
         click_handler = OptionClick
         ));

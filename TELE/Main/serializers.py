@@ -8,7 +8,7 @@ class UserSensorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sensor
-        fields = ("id", "name", "description", "owner")
+        fields = ("id", "name", "token", "description", "owner")
 
 
 class FdataSerializer(serializers.ModelSerializer):
