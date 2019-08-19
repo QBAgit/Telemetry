@@ -5,7 +5,8 @@ from registration.models import User
 
 class UserSensorSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.email')
-
+    token = serializers.ReadOnlyField()
+    
     class Meta:
         model = Sensor
         fields = ("id", "name", "token", "description", "owner")
