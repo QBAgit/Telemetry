@@ -17,4 +17,4 @@ class FdataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Fdata
-        fields = ("id", "sensor", "value", "timestamp")
+        fields = ("id", "sensor", "token" ,"value", "timestamp")

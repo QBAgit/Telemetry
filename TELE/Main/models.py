@@ -60,5 +60,6 @@ class Sensor(models.Model):
 
 class Fdata(models.Model):
     sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
+    token = models.CharField(max_length=32)
     value = models.FloatField()
     timestamp = models.DateTimeField(auto_now_add=True)

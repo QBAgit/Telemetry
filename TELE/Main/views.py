@@ -27,10 +27,24 @@ class FdataListView(generics.ListCreateAPIView):
     """
     List all float measures or create a new measure
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     queryset = Fdata.objects.all()
     serializer_class = FdataSerializer
+
+    def create(self, request, *args, **kwargs):
+        sensor_pk = request.POST['sensor']
+        sensor_token = Sensor.objects.get(pk = sensor_pk).token
+        req_token = request.POST['token']
+
+        if req_token == sensor_token:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 
 class FdataView(generics.RetrieveUpdateDestroyAPIView):
