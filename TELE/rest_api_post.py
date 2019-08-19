@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-
 import requests
 from random import randint
 import argparse
+import time
+
 
 BASE_API_URL = 'http://127.0.0.1:8000/api/v1/'
 
@@ -32,5 +33,6 @@ if __name__ == "__main__":
             random_number = randint(0,100)
             measurement.update({"sensor":args.id,"value": random_number})
             print(" * {}".format(add_fdata(measurement,args.u,args.p).text))
+            time.sleep(5)
     else:
         print("Missing parameters")
