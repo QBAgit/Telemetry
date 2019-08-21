@@ -1,28 +1,17 @@
 from django.db import models
 from registration.models import User
-from hashlib import pbkdf2_hmac
-from binascii import hexlify
-from hmac import compare_digest
-
-class Token():
-    @staticmethod
-    def generate(password, salt):
-        AUTH_SIZE = 16
-        byte_password = bytes(str(password),'utf-8')
-        byte_salt = bytes(str(salt),'utf-8')
-        dk = pbkdf2_hmac('sha256',byte_password, byte_salt, 100000, AUTH_SIZE)
-        return hexlify(dk).decode('utf-8')
+from Main.utilities import Token
 
 
 class SensorManager(models.Manager):
     def create(self, **obj_data):
         # Do some extra stuff here on the submitted data before saving...
-        # For example...
+        # gengenerate sensor token
         
         obj_data['token'] = Token.generate(obj_data['name'], obj_data['description'])
 
         # Now call the super method which does the actual creation
-        return super().create(**obj_data) # Python 3 syntax!!
+        return super().create(**obj_data)
 
 
 class Sensor(models.Model):
