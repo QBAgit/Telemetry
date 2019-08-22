@@ -89,7 +89,7 @@ function show_BoardData(
                     if (data.length > 0){                   
                         idik = data[0].sensor
                         // get element by unique id
-                        fresh_value = data[data.length-1].value
+                        fresh_value = data[data.length-1].value.toFixed(3)
                         $val = $('#sens-id-'+ idik + '-val')                       
                         $val.text(fresh_value)
                     }
@@ -110,6 +110,25 @@ function show_BoardData(
     });
 }
 
+function draw_Chart(chartLabels, chartData){
+    var ctx = document.getElementById('myLineChart').getContext('2d');
+    // window.dashBoardChart.destroy();
+    window.dashBoardChart = new Chart(ctx,{
+        type: "line",
+        color: "white",
+        backgroundColor: "white",
+        data: {
+            labels: chartLabels,
+            datasets: [{
+                data: chartData,
+                borderColor: "white",
+                backgroundColor: "red",
+                fill: false
+            }],
+        },
+    });
+}
+
 
 function show_DashBoardData(){
     $(show_BoardData(
@@ -123,21 +142,7 @@ function show_DashBoardData(){
         click_handler = DashBoardClick
         ));
     
-    var ctx = document.getElementById('myLineChart').getContext('2d');
-    window.dashBoardChart = new Chart(ctx,{
-        type: "line",
-        color: "white",
-        backgroundColor: "white",
-        data: {
-            // labels: [],
-            datasets: [{
-                // data: [],
-                borderColor: "white",
-                backgroundColor: "red",
-                fill: false
-            }],
-        },
-    });
+    draw_Chart([],[]);
 
 }
 
@@ -271,9 +276,8 @@ function OptionClick(){
 
 
 function updateChart(chart, label, data){
-    chart.data.labels = label;
-    chart.data.datasets[0].data = data;
-    chart.update();
+    chart.destroy();
+    draw_Chart(label,data);
 }
 
 
