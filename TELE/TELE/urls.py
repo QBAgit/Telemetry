@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf.urls import url
 from Main import views
 from django.conf.urls import include
-from registration.views import loginUser, logoutUser, signup
+from registration.views import loginUser, logoutUser, signup, activate
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,4 +39,5 @@ urlpatterns += [
     path('login/',loginUser),
     path('logout/', logoutUser),
     path('signup/',signup),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', activate, name='activate'),
 ]
