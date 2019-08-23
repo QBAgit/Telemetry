@@ -78,7 +78,14 @@ $(document).ready(function(){
         success : function(data){
             console.log(data['message']);
             if(data['message'] == "Success"){
-                window.location = "/"
+                
+                if(data['activation'].required)
+                    $("#activation").html(data['activation'].msg)
+                    setTimeout(
+                        function() 
+                        {
+                            window.location = "/"
+                        }, 2000);
             }
             else{
                 if("email" in data['message'])

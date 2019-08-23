@@ -62,8 +62,8 @@ def signup(request):
 			to_email = form.cleaned_data.get('email')
 			email = EmailMessage(mail_subject, message, to=[to_email])
 			email.send()
-			msg = "Please confirm your email address to complete the registration"
-			return HttpResponse(json.dumps({message: msg}),content_type="application/json")
+			activation = {"required": True, "msg": "Please confirm your email address to complete the registration" }
+			return HttpResponse(json.dumps({"message": "Success", "activation": activation}),content_type="application/json")
 
 			# return HttpResponse(json.dumps({"message": "Success"}),content_type="application/json")
 		else:
