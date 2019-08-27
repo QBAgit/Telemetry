@@ -276,7 +276,7 @@ function OptionClick(){
 
 
 function updateChart(chart, label, data){
-    chart.destroy();
+    chart && chart.destroy();
     draw_Chart(label,data);
 }
 

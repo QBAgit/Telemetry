@@ -65,13 +65,12 @@ def signup(request):
 			activation = {"required": True, "msg": "Please confirm your email address to complete the registration" }
 			return HttpResponse(json.dumps({"message": "Success", "activation": activation}),content_type="application/json")
 
-			# return HttpResponse(json.dumps({"message": "Success"}),content_type="application/json")
 		else:
 			return HttpResponse(json.dumps({"message":form.errors}),content_type="application/json")
 	else:
 		form = SignUpForm()
 	return HttpResponse(json.dumps({"message": "Denied"}),content_type="application/json")
-	# return render(request, 'registration/signup.html', {'form':form})
+
 
 def activate(request, uidb64, token):
 	try:
@@ -84,7 +83,7 @@ def activate(request, uidb64, token):
 	if user is not None and account_activation_token.check_token(user, token):
 		user.is_active = True
 		user.save()
-		login(request, user)
+		# login(request, user)
         # return redirect('home')
 		msg = "Thank you for your email confirmation. Now you can login your account."
 		return HttpResponse(json.dumps({"message": msg}),content_type="application/json")
