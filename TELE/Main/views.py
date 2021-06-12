@@ -58,6 +58,7 @@ class FdataView(generics.RetrieveUpdateDestroyAPIView):
 
 class UserSensorList(generics.ListCreateAPIView):
     """
+    TODO: Is this comment ok?
     List all float measures or create a new measure
     """
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
